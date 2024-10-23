@@ -1,0 +1,1 @@
+python3 <scripts_path>/product_config_validator/product_config_validator/json_validator.py --product_config_path <product_config_path> --output_path <output_path>

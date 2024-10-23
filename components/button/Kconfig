@@ -1,0 +1,12 @@
+menu "BUTTON"
+    choice BUTTON_DRIVER_GPIO_SETTINGS
+        prompt "Select HP/LP gpio as button input"
+        default BUTTON_DRIVER_USE_HP_GPIO
+
+        config BUTTON_DRIVER_USE_HP_GPIO
+        bool "Select HP GPIO as button input"
+
+        config BUTTON_DRIVER_USE_LP_GPIO
+        bool "Select LP GPIO as button input"
+    endchoice
+endmenu

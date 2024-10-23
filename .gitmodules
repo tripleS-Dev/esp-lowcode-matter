@@ -1,0 +1,3 @@
+[submodule "components/esp-amp"]
+	path = components/esp-amp
+	url = ../esp-amp.git

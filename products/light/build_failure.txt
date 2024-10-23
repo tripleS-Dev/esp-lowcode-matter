@@ -1,0 +1,196 @@
+Executing action: all (aliases: build)
+Running ninja in directory /home/gautam/esp/matter-one/low_code_lp_core/products/light/build
+Executing "ninja all"...
+[0/1] Re-running CMake...
+-- CMAKE_TOOLCHAIN_FILE=/home/gautam/esp/idf_low_code/tools/cmake/toolchain-esp32c6.cmake
+-- ccache will be used for faster recompilation
+-- Building ESP-IDF components for target esp32c6
+-- Project sdkconfig file /home/gautam/esp/matter-one/low_code_lp_core/products/light/sdkconfig
+Loading defaults file /home/gautam/esp/matter-one/low_code_lp_core/products/common/sdkconfig.defaults...
+-- Adding linker script /home/gautam/esp/idf_low_code/components/riscv/ld/rom.api.ld
+-- App "light" version: 1.0
+-- Adding linker script /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/esp_system/ld/sections.ld.in
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.api.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.rvfp.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.wdt.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.systimer.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.version.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.phy.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.coexist.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.net80211.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.pp.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.newlib.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.newlib-normal.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.heap.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/soc/esp32c6/ld/esp32c6.peripherals.ld
+-- Building ESP_AMP framework with LP Core as SubCore
+-- /home/gautam/esp/matter-one/low_code_lp_core/products/light/main
+-- Adding linker script /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.ld
+-- Components: app_trace app_update bootloader bootloader_support bt button cmock console cxx device_features driver efuse esp-tls esp_adc esp_amp esp_app_format esp_bootloader_format esp_coex esp_common esp_driver_ana_cmpr esp_driver_cam esp_driver_dac esp_driver_gpio esp_driver_gptimer esp_driver_i2c esp_driver_i2s esp_driver_isp esp_driver_jpeg esp_driver_ledc esp_driver_mcpwm esp_driver_parlio esp_driver_pcnt esp_driver_ppa esp_driver_rmt esp_driver_sdio esp_driver_sdm esp_driver_sdmmc esp_driver_sdspi esp_driver_spi esp_driver_touch_sens esp_driver_tsens esp_driver_uart esp_driver_usb_serial_jtag esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_vfs_console esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json light log low_code_transport lp_sw_timer lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table protobuf-c protocomm pthread relay riscv sdmmc soc spi_flash spiffs tcp_transport test_comp ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant
+-- Component paths: /home/gautam/esp/idf_low_code/components/app_trace /home/gautam/esp/idf_low_code/components/app_update /home/gautam/esp/idf_low_code/components/bootloader /home/gautam/esp/idf_low_code/components/bootloader_support /home/gautam/esp/idf_low_code/components/bt /home/gautam/esp/matter-one/low_code_lp_core/components/button /home/gautam/esp/idf_low_code/components/cmock /home/gautam/esp/idf_low_code/components/console /home/gautam/esp/idf_low_code/components/cxx /home/gautam/esp/matter-one/low_code_lp_core/components/device_features /home/gautam/esp/idf_low_code/components/driver /home/gautam/esp/idf_low_code/components/efuse /home/gautam/esp/idf_low_code/components/esp-tls /home/gautam/esp/idf_low_code/components/esp_adc /home/gautam/esp/esp-amp/components/esp_amp /home/gautam/esp/idf_low_code/components/esp_app_format /home/gautam/esp/idf_low_code/components/esp_bootloader_format /home/gautam/esp/idf_low_code/components/esp_coex /home/gautam/esp/idf_low_code/components/esp_common /home/gautam/esp/idf_low_code/components/esp_driver_ana_cmpr /home/gautam/esp/idf_low_code/components/esp_driver_cam /home/gautam/esp/idf_low_code/components/esp_driver_dac /home/gautam/esp/idf_low_code/components/esp_driver_gpio /home/gautam/esp/idf_low_code/components/esp_driver_gptimer /home/gautam/esp/idf_low_code/components/esp_driver_i2c /home/gautam/esp/idf_low_code/components/esp_driver_i2s /home/gautam/esp/idf_low_code/components/esp_driver_isp /home/gautam/esp/idf_low_code/components/esp_driver_jpeg /home/gautam/esp/idf_low_code/components/esp_driver_ledc /home/gautam/esp/idf_low_code/components/esp_driver_mcpwm /home/gautam/esp/idf_low_code/components/esp_driver_parlio /home/gautam/esp/idf_low_code/components/esp_driver_pcnt /home/gautam/esp/idf_low_code/components/esp_driver_ppa /home/gautam/esp/idf_low_code/components/esp_driver_rmt /home/gautam/esp/idf_low_code/components/esp_driver_sdio /home/gautam/esp/idf_low_code/components/esp_driver_sdm /home/gautam/esp/idf_low_code/components/esp_driver_sdmmc /home/gautam/esp/idf_low_code/components/esp_driver_sdspi /home/gautam/esp/idf_low_code/components/esp_driver_spi /home/gautam/esp/idf_low_code/components/esp_driver_touch_sens /home/gautam/esp/idf_low_code/components/esp_driver_tsens /home/gautam/esp/idf_low_code/components/esp_driver_uart /home/gautam/esp/idf_low_code/components/esp_driver_usb_serial_jtag /home/gautam/esp/idf_low_code/components/esp_eth /home/gautam/esp/idf_low_code/components/esp_event /home/gautam/esp/idf_low_code/components/esp_gdbstub /home/gautam/esp/idf_low_code/components/esp_hid /home/gautam/esp/idf_low_code/components/esp_http_client /home/gautam/esp/idf_low_code/components/esp_http_server /home/gautam/esp/idf_low_code/components/esp_https_ota /home/gautam/esp/idf_low_code/components/esp_https_server /home/gautam/esp/idf_low_code/components/esp_hw_support /home/gautam/esp/idf_low_code/components/esp_lcd /home/gautam/esp/idf_low_code/components/esp_local_ctrl /home/gautam/esp/idf_low_code/components/esp_mm /home/gautam/esp/idf_low_code/components/esp_netif /home/gautam/esp/idf_low_code/components/esp_netif_stack /home/gautam/esp/idf_low_code/components/esp_partition /home/gautam/esp/idf_low_code/components/esp_phy /home/gautam/esp/idf_low_code/components/esp_pm /home/gautam/esp/idf_low_code/components/esp_psram /home/gautam/esp/idf_low_code/components/esp_ringbuf /home/gautam/esp/idf_low_code/components/esp_rom /home/gautam/esp/idf_low_code/components/esp_system /home/gautam/esp/idf_low_code/components/esp_timer /home/gautam/esp/idf_low_code/components/esp_vfs_console /home/gautam/esp/idf_low_code/components/esp_wifi /home/gautam/esp/idf_low_code/components/espcoredump /home/gautam/esp/idf_low_code/components/esptool_py /home/gautam/esp/idf_low_code/components/fatfs /home/gautam/esp/idf_low_code/components/freertos /home/gautam/esp/idf_low_code/components/hal /home/gautam/esp/idf_low_code/components/heap /home/gautam/esp/idf_low_code/components/http_parser /home/gautam/esp/idf_low_code/components/idf_test /home/gautam/esp/idf_low_code/components/ieee802154 /home/gautam/esp/idf_low_code/components/json /home/gautam/esp/matter-one/low_code_lp_core/components/light /home/gautam/esp/idf_low_code/components/log /home/gautam/esp/matter-one/low_code_lp_core/components/low_code_transport /home/gautam/esp/matter-one/low_code_lp_core/components/lp_sw_timer /home/gautam/esp/idf_low_code/components/lwip /home/gautam/esp/matter-one/low_code_lp_core/products/light/main /home/gautam/esp/idf_low_code/components/mbedtls /home/gautam/esp/idf_low_code/components/mqtt /home/gautam/esp/idf_low_code/components/newlib /home/gautam/esp/idf_low_code/components/nvs_flash /home/gautam/esp/idf_low_code/components/nvs_sec_provider /home/gautam/esp/idf_low_code/components/openthread /home/gautam/esp/idf_low_code/components/partition_table /home/gautam/esp/idf_low_code/components/protobuf-c /home/gautam/esp/idf_low_code/components/protocomm /home/gautam/esp/idf_low_code/components/pthread /home/gautam/esp/matter-one/low_code_lp_core/components/relay /home/gautam/esp/idf_low_code/components/riscv /home/gautam/esp/idf_low_code/components/sdmmc /home/gautam/esp/idf_low_code/components/soc /home/gautam/esp/idf_low_code/components/spi_flash /home/gautam/esp/idf_low_code/components/spiffs /home/gautam/esp/idf_low_code/components/tcp_transport /home/gautam/esp/esp-amp/components/test_comp /home/gautam/esp/idf_low_code/components/ulp /home/gautam/esp/idf_low_code/components/unity /home/gautam/esp/idf_low_code/components/usb /home/gautam/esp/idf_low_code/components/vfs /home/gautam/esp/idf_low_code/components/wear_levelling /home/gautam/esp/idf_low_code/components/wifi_provisioning /home/gautam/esp/idf_low_code/components/wpa_supplicant
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/gautam/esp/matter-one/low_code_lp_core/products/light/build
+[1/16] Performing build step for 'bootloader'
+[0/1] Re-running CMake...
+-- CMAKE_TOOLCHAIN_FILE=/home/gautam/esp/idf_low_code/tools/cmake/toolchain-esp32c6.cmake
+-- Building ESP-IDF components for target esp32c6
+-- Project sdkconfig file /home/gautam/esp/matter-one/low_code_lp_core/products/light/sdkconfig
+-- Adding linker script /home/gautam/esp/idf_low_code/components/riscv/ld/rom.api.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/soc/esp32c6/ld/esp32c6.peripherals.ld
+-- Bootloader project name: "bootloader" version: 1
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.api.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.rvfp.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.wdt.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.systimer.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.version.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.phy.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/esp_rom/esp32c6/ld/esp32c6.rom.newlib.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/bootloader/subproject/main/ld/esp32c6/bootloader.ld
+-- Adding linker script /home/gautam/esp/idf_low_code/components/bootloader/subproject/main/ld/esp32c6/bootloader.rom.ld
+-- Components: bootloader bootloader_support efuse esp_app_format esp_bootloader_format esp_common esp_hw_support esp_rom esp_system esptool_py freertos hal log main micro-ecc newlib partition_table riscv soc spi_flash
+-- Component paths: /home/gautam/esp/idf_low_code/components/bootloader /home/gautam/esp/idf_low_code/components/bootloader_support /home/gautam/esp/idf_low_code/components/efuse /home/gautam/esp/idf_low_code/components/esp_app_format /home/gautam/esp/idf_low_code/components/esp_bootloader_format /home/gautam/esp/idf_low_code/components/esp_common /home/gautam/esp/idf_low_code/components/esp_hw_support /home/gautam/esp/idf_low_code/components/esp_rom /home/gautam/esp/idf_low_code/components/esp_system /home/gautam/esp/idf_low_code/components/esptool_py /home/gautam/esp/idf_low_code/components/freertos /home/gautam/esp/idf_low_code/components/hal /home/gautam/esp/idf_low_code/components/log /home/gautam/esp/idf_low_code/components/bootloader/subproject/main /home/gautam/esp/idf_low_code/components/bootloader/subproject/components/micro-ecc /home/gautam/esp/idf_low_code/components/newlib /home/gautam/esp/idf_low_code/components/partition_table /home/gautam/esp/idf_low_code/components/riscv /home/gautam/esp/idf_low_code/components/soc /home/gautam/esp/idf_low_code/components/spi_flash
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/bootloader
+[1/1] cd /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/bootloader/esp-idf/esptool_py && /home/gautam/.espressif/python_env/idf5.3_py3.11_env/bin/python /home/gautam/esp/idf_low_code/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/bootloader/bootloader.bin
+Bootloader binary size 0x54f0 bytes. 0x2b10 bytes (34%) free.
+[2/14] Performing build step for 'subcore_light'
+FAILED: esp-idf/main/subcore_light-prefix/src/subcore_light-stamp/subcore_light-build esp-idf/main/subcore_light/subcore_light.bin esp-idf/main/subcore_light/subcore_light.ld esp-idf/main/subcore_light/subcore_light.h esp-idf/main/subcore_light/subcore_light.map esp-idf/main/subcore_light/subcore_light.sym subcore_light.subcore.bin esp-idf/main/subcore_light/esp32.esp_amp.ld esp-idf/main/subcore_light/subcore_light /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light-prefix/src/subcore_light-stamp/subcore_light-build /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.bin /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.ld /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.h /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.map /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.sym /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/subcore_light.subcore.bin /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/esp32.esp_amp.ld /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light 
+cd /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light && /usr/bin/cmake --build /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light --target build
+[0/1] Re-running CMake...
+-- creating idf_stub under /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light
+folder app_trace exists. skipping.
+folder app_update exists. skipping.
+folder bootloader exists. skipping.
+folder bootloader_support exists. skipping.
+folder bt exists. skipping.
+folder cmock exists. skipping.
+folder console exists. skipping.
+folder cxx exists. skipping.
+folder driver exists. skipping.
+folder efuse exists. skipping.
+folder esp_adc exists. skipping.
+folder esp_app_format exists. skipping.
+folder esp_bootloader_format exists. skipping.
+folder esp_coex exists. skipping.
+folder esp_common exists. skipping.
+folder espcoredump exists. skipping.
+folder esp_driver_ana_cmpr exists. skipping.
+folder esp_driver_cam exists. skipping.
+folder esp_driver_dac exists. skipping.
+folder esp_driver_gpio exists. skipping.
+folder esp_driver_gptimer exists. skipping.
+folder esp_driver_i2c exists. skipping.
+folder esp_driver_i2s exists. skipping.
+folder esp_driver_isp exists. skipping.
+folder esp_driver_jpeg exists. skipping.
+folder esp_driver_ledc exists. skipping.
+folder esp_driver_mcpwm exists. skipping.
+folder esp_driver_parlio exists. skipping.
+folder esp_driver_pcnt exists. skipping.
+folder esp_driver_ppa exists. skipping.
+folder esp_driver_rmt exists. skipping.
+folder esp_driver_sdio exists. skipping.
+folder esp_driver_sdm exists. skipping.
+folder esp_driver_sdmmc exists. skipping.
+folder esp_driver_sdspi exists. skipping.
+folder esp_driver_spi exists. skipping.
+folder esp_driver_touch_sens exists. skipping.
+folder esp_driver_tsens exists. skipping.
+folder esp_driver_uart exists. skipping.
+folder esp_driver_usb_serial_jtag exists. skipping.
+folder esp_eth exists. skipping.
+folder esp_event exists. skipping.
+folder esp_gdbstub exists. skipping.
+folder esp_hid exists. skipping.
+folder esp_http_client exists. skipping.
+folder esp_http_server exists. skipping.
+folder esp_https_ota exists. skipping.
+folder esp_https_server exists. skipping.
+folder esp_hw_support exists. skipping.
+folder esp_lcd exists. skipping.
+folder esp_local_ctrl exists. skipping.
+folder esp_mm exists. skipping.
+folder esp_netif exists. skipping.
+folder esp_netif_stack exists. skipping.
+folder esp_partition exists. skipping.
+folder esp_phy exists. skipping.
+folder esp_pm exists. skipping.
+folder esp_psram exists. skipping.
+folder esp_ringbuf exists. skipping.
+folder esp_rom exists. skipping.
+folder esp_system exists. skipping.
+folder esp_timer exists. skipping.
+folder esp-tls exists. skipping.
+folder esptool_py exists. skipping.
+folder esp_vfs_console exists. skipping.
+folder esp_wifi exists. skipping.
+folder fatfs exists. skipping.
+folder freertos exists. skipping.
+folder hal exists. skipping.
+folder heap exists. skipping.
+folder http_parser exists. skipping.
+folder idf_test exists. skipping.
+folder ieee802154 exists. skipping.
+folder json exists. skipping.
+folder linux exists. skipping.
+folder log exists. skipping.
+folder lwip exists. skipping.
+folder mbedtls exists. skipping.
+folder mqtt exists. skipping.
+folder newlib exists. skipping.
+folder nvs_flash exists. skipping.
+folder nvs_sec_provider exists. skipping.
+folder openthread exists. skipping.
+folder partition_table exists. skipping.
+folder perfmon exists. skipping.
+folder protobuf-c exists. skipping.
+folder protocomm exists. skipping.
+folder pthread exists. skipping.
+folder README.md exists. skipping.
+folder riscv exists. skipping.
+folder sdmmc exists. skipping.
+folder soc exists. skipping.
+folder spiffs exists. skipping.
+folder spi_flash exists. skipping.
+folder tcp_transport exists. skipping.
+folder touch_element exists. skipping.
+folder ulp exists. skipping.
+folder unity exists. skipping.
+folder usb exists. skipping.
+folder vfs exists. skipping.
+folder wear_levelling exists. skipping.
+folder wifi_provisioning exists. skipping.
+folder wpa_supplicant exists. skipping.
+folder xtensa exists. skipping.
+All component directories and CMakeLists.txt files have been created.
+Script executed successfully.
+-- CMAKE_TOOLCHAIN_FILE=/home/gautam/esp/esp-amp/components/esp_amp/cmake/toolchain-lp-core-riscv.cmake
+-- set CMAKE_TOOLCHAIN_FILE to /home/gautam/esp/esp-amp/components/esp_amp/cmake/toolchain-lp-core-riscv.cmake
+-- Building ESP-IDF components for target esp32c6
+-- Checking Python dependencies...
+Python requirements are satisfied.
+Constraint file: /home/gautam/.espressif/espidf.constraints.v5.3.txt
+Requirement files:
+ - /home/gautam/esp/idf_low_code/tools/requirements/requirements.core.txt
+Python being checked: /home/gautam/.espressif/python_env/idf5.3_py3.11_env/bin/python
+-- Project sdkconfig file /home/gautam/esp/matter-one/low_code_lp_core/products/light/sdkconfig
+Loading defaults file /home/gautam/esp/matter-one/low_code_lp_core/products/common/sdkconfig.defaults...
+-- Components: README.md app_trace app_update bootloader bootloader_support bt button cmock console cxx device_features driver efuse esp-tls esp_adc esp_amp esp_app_format esp_bootloader_format esp_coex esp_common esp_driver_ana_cmpr esp_driver_cam esp_driver_dac esp_driver_gpio esp_driver_gptimer esp_driver_i2c esp_driver_i2s esp_driver_isp esp_driver_jpeg esp_driver_ledc esp_driver_mcpwm esp_driver_parlio esp_driver_pcnt esp_driver_ppa esp_driver_rmt esp_driver_sdio esp_driver_sdm esp_driver_sdmmc esp_driver_sdspi esp_driver_spi esp_driver_touch_sens esp_driver_tsens esp_driver_uart esp_driver_usb_serial_jtag esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_vfs_console esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json light linux log low_code_transport lp_sw_timer lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread relay riscv sdmmc soc spi_flash spiffs tcp_transport touch_element ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/README.md /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/app_trace /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/app_update /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/bootloader /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/bootloader_support /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/bt /home/gautam/esp/matter-one/low_code_lp_core/components/button /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/cmock /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/console /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/cxx /home/gautam/esp/matter-one/low_code_lp_core/components/device_features /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/driver /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/efuse /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp-tls /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_adc /home/gautam/esp/esp-amp/components/esp_amp/idf_stub/esp_amp /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_app_format /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_bootloader_format /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_coex /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_common /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_ana_cmpr /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_cam /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_dac /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_gpio /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_gptimer /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_i2c /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_i2s /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_isp /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_jpeg /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_ledc /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_mcpwm /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_parlio /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_pcnt /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_ppa /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_rmt /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_sdio /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_sdm /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_sdmmc /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_sdspi /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_spi /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_touch_sens /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_tsens /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_uart /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_driver_usb_serial_jtag /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_eth /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_event /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_gdbstub /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_hid /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_http_client /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_http_server /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_https_ota /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_https_server /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_hw_support /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_lcd /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_local_ctrl /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_mm /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_netif /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_netif_stack /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_partition /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_phy /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_pm /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_psram /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_ringbuf /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_rom /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_system /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_timer /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_vfs_console /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esp_wifi /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/espcoredump /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/esptool_py /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/fatfs /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/freertos /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/hal /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/heap /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/http_parser /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/idf_test /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/ieee802154 /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/json /home/gautam/esp/matter-one/low_code_lp_core/components/light /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/linux /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/log /home/gautam/esp/matter-one/low_code_lp_core/components/low_code_transport /home/gautam/esp/matter-one/low_code_lp_core/components/lp_sw_timer /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/lwip /home/gautam/esp/matter-one/low_code_lp_core/products/light/main /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/mbedtls /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/mqtt /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/newlib /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/nvs_flash /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/nvs_sec_provider /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/openthread /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/partition_table /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/perfmon /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/protobuf-c /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/protocomm /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/pthread /home/gautam/esp/matter-one/low_code_lp_core/components/relay /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/riscv /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/sdmmc /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/soc /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/spi_flash /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/spiffs /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/tcp_transport /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/touch_element /home/gautam/esp/esp-amp/components/esp_amp/idf_stub/ulp /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/unity /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/usb /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/vfs /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/wear_levelling /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/wifi_provisioning /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/wpa_supplicant /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/idf_stub/xtensa
+-- Building ESP_AMP app subcore_light
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light
+[1/6] Linking CXX executable subcore_light
+FAILED: subcore_light 
+: && /home/gautam/.espressif/tools/riscv32-esp-elf/esp-13.2.0_20240530/riscv32-esp-elf/bin/riscv32-esp-elf-g++ -Os -ggdb -march=rv32imac_zicsr_zifencei -mdiv -fdata-sections -ffunction-sections -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf -fno-builtin-putc -march=rv32imac_zicsr_zifencei --specs=nano.specs --specs=nosys.specs -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf -fno-builtin-putc   -nostartfiles -Wl,--no-warn-rwx-segments -Wl,--gc-sections -Wl,-Map=/home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/subcore_light.map -T /home/gautam/esp/matter-one/low_code_lp_core/products/light/build/esp-idf/main/subcore_light/memory.ld /home/gautam/esp/idf_low_code/components/soc/esp32c6/ld/esp32c6.peripherals.ld CMakeFiles/subcore_light.dir/app_main.cpp.obj CMakeFiles/subcore_light.dir/app_driver.cpp.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/start.S.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/vector.S.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/port/esp32c6/vector_table.S.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/shared/ulp_lp_core_memory_shared.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/shared/ulp_lp_core_lp_timer_shared.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_startup.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_utils.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/hal/uart_hal_iram.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/hal/uart_hal.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_uart.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_print.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_panic.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_interrupt.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/idf_low_code/components/ulp/lp_core/lp_core/lp_core_i2c.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/sw_intr/pmu/esp_amp_sw_intr.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/port/arch/riscv/esp_amp_arch.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/port/platform/lp_core/esp_amp_platform.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/esp_amp.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/event/baremetal/esp_amp_event.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/esp_amp_sys_info.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/esp_amp_rpmsg.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/queue/esp_amp_queue.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/rpc/baremetal/rpc_server.c.obj CMakeFiles/subcore_light.dir/home/gautam/esp/esp-amp/components/esp_amp/src/rpc/baremetal/rpc_client.c.obj -o subcore_light  -Wl,--wrap=printf  -Wl,--defsym=__wrap_printf=lp_core_printf  -Wl,--wrap=putc  -Wl,--defsym=__wrap_putc=lp_core_print_char  -Wl,--wrap=fprintf  -Wl,--wrap=vprintf  -Wl,--wrap=puts  esp-idf/device_features/libdevice_features.a  esp-idf/low_code_transport/liblow_code_transport.a  esp-idf/main/libmain.a  esp-idf/lp_sw_timer/liblp_sw_timer.a  esp-idf/low_code_transport/liblow_code_transport.a  esp-idf/device_features/libdevice_features.a  esp-idf/light/liblight.a  esp-idf/lp_sw_timer/liblp_sw_timer.a && :
+/home/gautam/.espressif/tools/riscv32-esp-elf/esp-13.2.0_20240530/riscv32-esp-elf/bin/../lib/gcc/riscv32-esp-elf/13.2.0/../../../../riscv32-esp-elf/bin/ld: address 0x5000398c of subcore_light section `.bss' is not within region `ram'
+/home/gautam/.espressif/tools/riscv32-esp-elf/esp-13.2.0_20240530/riscv32-esp-elf/bin/../lib/gcc/riscv32-esp-elf/13.2.0/../../../../riscv32-esp-elf/bin/ld: address 0x5000398c of subcore_light section `.bss' is not within region `ram'
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+ninja: build stopped: subcommand failed.

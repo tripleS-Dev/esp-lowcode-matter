@@ -6,7 +6,7 @@ cffi               == 1.15.0
 charset-normalizer == 3.1.0
 cryptography       == 36.0.0
 ecdsa              == 0.18.0
-esptool            == 4.7.0
+esptool            == 4.8
 idna               == 3.4
 pycparser          == 2.21
 pypng              == 0.0.21

@@ -27,3 +27,4 @@ jsonschema_markdown== 0.2.1
 esp-matter-mfg-tool== 1.0.2
 lark               == 1.2.2
 protobuf           == 5.28.3
+esp_idf_nvs_partition_gen==0.1.3

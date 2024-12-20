@@ -1,78 +1,92 @@
-# Low Code: LP Core
+# ESP LowCode: Matter
 
-## Setup
+ESP LowCode for Matter helps you build Matter devices quickly and easily and in a very lightweight way.
 
-Clone the repositories.
+TODO
 
-```sh
-cd esp-matter-lowcode
-git submodule update --init --recursive
-cd ..
-```
+This is currently only supported on ESP32-C6. We are working on supporting other ESP32 series as well. Checkout more in [discussions](https://github.com/chiragatal/esp-lowcode-matter/discussions).
 
-```sh
-git clone -b release/v5.3 https://github.com/espressif/esp-idf.git --recursive
-cd esp-idf
-export ESP_IDF_PATH=$(pwd)/esp-idf
-./install.sh
-. ./export.sh
-cd ..
-```
+LowCode offers several key features that make the development and getting started quick and easy:
 
-```sh
-git clone --single-branch -b feature/matter-file-parsing --depth 1 https://github.com/espressif/esp-matter.git
-cd esp-matter
-export ESP_MATTER_PATH=$(pwd)/esp-matter
-git submodule update --init --depth 1
-cd connectedhomeip/connectedhomeip
-./scripts/checkout_submodules.py --platform esp32 linux --shallow
-cd ..
-./install.sh
-. ./export.sh
-cd ..
-```
+- No host setup required
+- Develop directly in your browser
+- Lightweight implementation with minimal overhead
+- Simple Arduino-like programming model for ease of use
+- Full Matter certification while maintaining simplicity
 
-```sh
-git clone -b development https://github.com/espressif/esp-amp.git
-cd esp-amp
-export ESP_AMP_PATH=$(pwd)/esp-amp
-git submodule update --init --recursive
-cd ..
-```
+## Get Started
 
-## Pre-built Binaries
+With LowCode you can easily edit, build, flash and debug your device in the browser itself using GitHub [Codespaces](#open-codespace). It is basically VS Code in the browser.
 
-Flash the pre-built binaries to the device.
+> Codespaces for LowCode currently only works with Chromium based browsers such as Chrome, Edge, etc.
 
-```sh
-cd pre_built_binaries
-esptool.py erase_flash
-esptool.py write_flash $(cat flash_args)
-```
+Alternatively, you can also develop using local [terminal](./docs/getting_started_terminal.md) or local [VS Code](./docs/getting_started_vscode.md) on your host machine.
 
-## Per device configuration
+### Open Codespace
 
-```sh
-cd tools/mfg
-./mfg_low_code.sh ../../products/light
-```
+This will launch the web VS Code in the browser and get all the required dependencies, toolchains, repositories and setup the environment for you to start developing.
 
-## Build
+![Open Codespace](./docs/images/open_codespace.png)
 
-```sh
-cd products/light
-idf.py set-target esp32c6
-idf.py build
-```
+- Go to <https://github.com/chiragatal/esp-lowcode-matter/> and make sure you are logged in to GitHub
+- Click on the green "Code" button -> Codespaces -> Create Codespace on Main (+)
+- This might take about **5 minutes** to setup
+- In the process, the codespace will **restart** a few times
 
-## Flash
+Now you should be able to see the full fledged VS Code. There should be files and folders present in the left panel and the terminal and the output windows on the bottom. There should also be a status bar at the bottom with some buttons for LowCode.
 
-```sh
-esptool.py write_flash 0x20C000 build/subcore_light.subcore.bin
-```
+### Start Development
 
-## Monitor
+Out of the box, LowCode offers some products in `esp-lowcode-matter/products` folder. Start by clicking the "Select Product" button on the **bottom of the screen (status bar)**.
 
-```sh
-python3 -m esp_idf_monitor
-```
+![Status Bar](./docs/images/status_bar.png)
+
+The subsequent development steps are aligned in a sequence of buttons to take you through the process. Just click on the buttons from left to right.
+
+![Status Bar](./docs/images/status_bar_steps.png)
+
+There are also Codespaces commands (ctrl/cmd + shift + p) available with **"Lowcode:"** prefix for the same.
+
+- **Select Product**: Start by selecting the product that you want to create which will also open the product code
+- **Select Port**: Connect your **esp32c6** board to your computer via USB, and select the port
+- **Prepare Device**: This will erase the flash on the device and flash the prebuilt binaries to your esp32c6 board
+- **Upload Configuration**: This will generate the required device certificates and the qr code for the device and flash them to the device
+- **Upload Code**: This will build, flash and run the code on the device
+
+Once you have followed these steps, you now have a fully functional Matter Product. You can directly start using this through Ecosystems like Amazon, Apple, Google, Home Assistant, Samsung: [Device setup and control](./docs/device_setup.md)
+
+## Next Steps
+
+For additional information, you can refer to the following:
+
+- [Create and customize your own product](./docs/create_product.md)
+- [Product Configuration](./docs/product_configuration.md)
+- [Programmer's model](./docs/programmer_model.md)
+- [Debugging](./docs/debugging.md)
+- [Production considerations](./docs/production_considerations.md)
+- [Discussions](https://github.com/chiragatal/esp-lowcode-matter/discussions)
+- [More about GitHub Codespaces](./docs/codespaces.md)
+
+## More
+
+### Other Commands
+
+Some other commands (ctrl/cmd + shift + p) to help with development:
+
+- **Build**: Build the selected product
+- **Flash**: Flash the built product to your esp32c6 board
+- **Console**: Open the device console to view the logs
+- **Erase Flash**: Erase the flash storage
+- **Menuconfig**: Open the menuconfig for the selected product
+- **Product Clean**: Clean the build system
+
+![commands](./docs/images/commands.png)
+
+### Other Solutions
+
+All of this is about ESP LowCode, but you can also checkout the following. Do you:
+
+- Need something even simpler with basic customization? You can use [ESP ZeroCode](https://zerocode.espressif.com/) instead. BTW, this is the fastest way to go to production and launch your product.
+- Need more flexibility and customization? You can use [ESP Matter](https://github.com/espressif/esp-matter) instead.
+
+Checkout the differences between all these solutions in the [comparison](./docs/comparison.md).

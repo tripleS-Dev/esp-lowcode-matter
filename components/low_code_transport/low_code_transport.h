@@ -14,4 +14,4 @@
 
 #pragma once
 
-int low_code_transport_lp_core_external_register_callbacks();
+int low_code_transport_register_callbacks();

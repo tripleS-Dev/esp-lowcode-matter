@@ -2,8 +2,6 @@
 
 ESP LowCode for Matter helps you build Matter devices quickly and easily and in a very lightweight way.
 
-TODO
-
 This is currently only supported on ESP32-C6. We are working on supporting other ESP32 series as well. Checkout more in [discussions](https://github.com/chiragatal/esp-lowcode-matter/discussions).
 
 LowCode offers several key features that make the development and getting started quick and easy:
@@ -36,6 +34,8 @@ This will launch the web VS Code in the browser and get all the required depende
 Now you should be able to see the full fledged VS Code. There should be files and folders present in the left panel and the terminal and the output windows on the bottom. There should also be a status bar at the bottom with some buttons for LowCode.
 
 ### Start Development
+
+Wait for the `LowCode is Ready` message in the terminal.
 
 Out of the box, LowCode offers some products in `esp-lowcode-matter/products` folder. Start by clicking the "Select Product" button on the **bottom of the screen (status bar)**.
 

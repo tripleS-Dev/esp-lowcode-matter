@@ -6,7 +6,7 @@ The LP Core, in turn, communicates with the HP Core, enabling event-driven commu
 
 The initialization process begins with the HP Core, which sets up the necessary communication protocols and handles the firmware loading for the LP Core. Once the HP Core has completed its tasks, the LP Core is then initialized, ready to execute the firmware that has been loaded into memory.
 
-Refer [ESP AMP](https://github.com/chiragatal/esp-amp/blob/main/README.md) for more details.
+Refer [ESP AMP](https://github.com/espressif/esp-amp/blob/main/README.md) for more details.
 
 ## Related Documents
 

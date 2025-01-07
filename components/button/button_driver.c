@@ -1,6 +1,7 @@
 #include "sdkconfig.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "stdatomic.h"
 
 #include "riscv/rv_utils.h"
 #include "soc/soc.h"
@@ -99,17 +100,15 @@ typedef struct {
 
 static button_dev_t g_btn_list[MAX_BUTTON_NUM];
 
-static void button_driver_isr_handler(uint32_t pin_mask);
+static void button_driver_isr_handler(uint32_t* pin_mask);
 
 #if CONFIG_BUTTON_DRIVER_USE_HP_GPIO
 static bool hp_gpio_intr_handler_registered = false;
 
 static int hp_gpio_sw_intr_handler(void *arg)
 {
-    // TODO: Instead use atomic_cmp_exchg since maincore can reuse the memory, causing the race condition
     uint32_t *pin_mask = (uint32_t*) esp_amp_sys_info_get(0x00, NULL);
-    button_driver_isr_handler(*pin_mask);
-    pin_mask = 0;
+    button_driver_isr_handler(pin_mask);
     return 0;
 }
 #endif
@@ -369,13 +368,17 @@ int button_driver_unregister_cb(button_handle_t btn_handle, button_event_t event
     return 0;
 }
 
-static void button_driver_isr_handler(uint32_t pin_mask)
+static void button_driver_isr_handler(uint32_t* pin_mask)
 {
     /* loop against all buttons */
     for (int i=0; i<MAX_BUTTON_NUM; i++) {
         if (g_btn_list[i].valid) {
             /* the GPIO under current interrupt is button */
-            if (BIT(g_btn_list[i].gpio) & pin_mask) {
+            if (BIT(g_btn_list[i].gpio) & *pin_mask) {
+                uint32_t expected = atomic_load(pin_mask);
+                if ((expected & BIT(g_btn_list[i].gpio))) {
+                    atomic_compare_exchange_strong(pin_mask, &expected, expected & ~BIT(g_btn_list[i].gpio));
+                }
                 button_dev_t *button = &g_btn_list[i];
                 switch (button->state) {
                 case BUTTON_STATE_NO_PRESS:

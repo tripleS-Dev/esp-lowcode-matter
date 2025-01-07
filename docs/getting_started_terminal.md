@@ -28,7 +28,7 @@ cd ..
 ```
 
 ```sh
-git clone -b main https://github.com/chiragatal/esp-amp.git --recursive
+git clone -b main https://github.com/espressif/esp-amp.git --recursive
 cd esp-amp
 export ESP_AMP_PATH=$(pwd)/esp-amp
 git submodule update --init --recursive
@@ -36,7 +36,7 @@ cd ..
 ```
 
 ```sh
-git clone -b main https://github.com/chiragatal/esp-lowcode-matter.git --recursive
+git clone -b main https://github.com/espressif/esp-lowcode-matter.git --recursive
 cd esp-lowcode-matter
 git submodule update --init --recursive
 ./install.sh

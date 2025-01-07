@@ -49,7 +49,6 @@ int low_code_event_to_system(low_code_event_t *event)
 
 int low_code_feature_update_from_transport(low_code_feature_data_t *data)
 {
-    // TODO: Call customer prototype function here
     if (!data) {
         printf("%s: Low Code feature data cannot be null\n", TAG);
         return ESP_ERR_INVALID_ARG;

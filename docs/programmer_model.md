@@ -1,12 +1,17 @@
 # Programmer's Model
 
-The ESP32-C6 microcontroller features two processing cores: the High-Performance (HP) Core and the Low-Power (LP) Core. Each core serves a specific purpose in the device’s operation. The HP Core is primarily responsible for initializing and managing essential system functions, including the Wi-Fi, Bluetooth, and Matter protocol stacks. Once these systems are initialized, the HP Core also loads the firmware intended for the LP Core into memory.
+ESP LowCode was born out of the need to contain development complexity that that developers needs to be exposed to, while building connected products. The ESP LowCode project attempts to expose a simpler setup-loop kind of development framework, that reduces development complexity and lightens the debug overhead. This is achieved by utilising the cores in the ESP32-C6 in an asymmetric manner.
 
-The LP Core, in turn, communicates with the HP Core, enabling event-driven communication where it can both send and receive events to/from the HP Core. The firmware running on the device is specifically designed for the LP Core and is typically flashed using a low-code platform.
+The ESP32-C6 microcontroller features two processing cores: the High-Performance (HP) Core and the Low-Power (LP) Core. ESP LowCode assigns a specific purpose in the device’s operation. In ESP LowCode, developers write firmware for the LP Core. They have full control on the firmware running on this core. The firmware runs within a single thread of execution thus simplifying product development considerations. Further, the memory between the two cores is compartmentalised, thus ensuring that one core cannot easily corrupt the memory of the other, thereby reducing debug considerations.
 
-The initialization process begins with the HP Core, which sets up the necessary communication protocols and handles the firmware loading for the LP Core. Once the HP Core has completed its tasks, the LP Core is then initialized, ready to execute the firmware that has been loaded into memory.
+The HP Core does the heavy-lifting of the Matter and the typical operations of connected devices. It is primarily responsible for initializing and managing essential system functions, including the Wi-Fi, Bluetooth, and Matter protocol stacks. Once these systems are initialized, the HP Core also loads the firmware intended for the LP Core into memory. The firmware running on the HP Core is a typical IDF firmware with multiple threads of execution. For a faster edit-debug cycle, ESP LowCode includes a pre-built firmware image for the HP Core that is available in the pre_built_binaries directory.
 
-Refer [ESP AMP](https://github.com/espressif/esp-amp/blob/main/README.md) for more details.
+The two cores communicate with each other using messages. The messages can be sent from the LP Core to the HP Core and vice versa. Refer [ESP AMP](https://github.com/espressif/esp-amp/blob/main/README.md) for more details about the HP Core and LP Core split and the communication model.
+
+In LowCode, the messages are primarily of two types:
+
+1. **Events**: These are system level events that define the state of the device. For example, the HP Core sends an event to the LP Core to indicate that the device is ready. Or the LP Core sends an event to the HP Core to factory reset the device.
+2. **Feature Data**: These are updates to the features of the device. For example, the LP Core sends an event to the HP Core when the power state of the device changes. Or HP Core sends a message to the LP Core when some Ecosystem is used to change the power state of the device.
 
 ## Related Documents
 

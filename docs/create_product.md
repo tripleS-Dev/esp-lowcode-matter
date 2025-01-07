@@ -53,20 +53,21 @@ Refer to [product_configuration.md](product_configuration.md) for more informati
 
 ## Add new drivers and components
 
-For adding new drivers and components, you can add them to the `components` directory. It needs a `.c` file, a `.h` file and a `CMakeLists.txt` file. Make sure to add this new component to the `CMakeLists.txt` file in the `main` directory to use them in the product.
+For adding new drivers and components, it is recommended to add them to the `components` directory. It needs a `.c` file, a `.h` file and a `CMakeLists.txt` file. Make sure to add this new component to the `CMakeLists.txt` file in the `main` directory to use them in the product.
 
 ## Porting from Arduino
 
-We’ve restructured some of the core Arduino functions to make them more descriptive and aligned with lowcode platform. Here’s a table mapping commonly used Arduino functions to their equivalents on lowcode platform:
+If you are porting from Arduino, the following mapping table might help you get started: It is a mapping of some commonly used Arduino functions to their equivalents in LowCode.
 
-| **Arduino Function**      | **LowCode Function**  | **Description**                        |
-|---------------------------|----------------------------|----------------------------------------|
-| `pinMode(pin, mode)`       | `system_set_pin_mode(pin, mode)`   | Configures the specified pin as INPUT or OUTPUT. |
-| `digitalWrite(pin, value)` | `system_digital_write(pin, level)` | Writes a value to a digital pin (HIGH or LOW). |
-| `digitalRead(pin)`         | `system_digital_read(pin)`     | Reads the value from a digital pin.    |
-| `delay(ms)`                | `system_delay_ms(ms)`       | Pauses the program for a specified number of milliseconds. |
-| `analogWrite`              | `TODO`       | Writes an analog value (PWM wave) to a pin. |
-| `analogRead`               | `TODO`       | Reads the value from the specified analog pin. |
+| **Arduino Function**         | **LowCode Function**  | **Description**                        |
+|------------------------------|----------------------------|----------------------------------------|
+| `pinMode(pin, mode)`         | `system_set_pin_mode(pin, mode)`   | Configures the specified pin as INPUT or OUTPUT. |
+| `digitalWrite(pin, value)`   | `system_digital_write(pin, level)` | Writes a value to a digital pin (HIGH or LOW). |
+| `digitalRead(pin)`           | `system_digital_read(pin)`         | Reads the value from a digital pin.    |
+| `delay(ms)`                  | `system_delay_ms(ms)`              | Pauses the program for a specified number of milliseconds. |
+| `analogWrite(pin, value)`    | `TODO`                             | Writes an analog value (PWM wave) to a pin. |
+| `analogRead(pin)`            | `TODO`                             | Reads the value from the specified analog pin. |
+| `serial.println("message")`  | `printf("%s: <message>\n", TAG)`   | Prints a string to the serial port and adds a newline character. |
 
 ## Related Documents
 
@@ -74,5 +75,6 @@ We’ve restructured some of the core Arduino functions to make them more descri
 * [Debugging](./debugging.md)
 * [Programmer's Model](./programmer_model.md)
 * [Products](../products/README.md)
+* [Components](../components/README.md)
 * [Getting Started: Codespaces](../README.md)
 * [All Documents](./all_documents.md)

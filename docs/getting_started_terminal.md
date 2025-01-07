@@ -1,7 +1,7 @@
-# ESP LowCode: Matter
+# Terminal
 
-* [ESP LowCode: Matter](#esp-lowcode-matter)
 * [Terminal](#terminal)
+* [Get Started: Terminal](#get-started-terminal)
 * [Setup Environment](#setup-environment)
 * [Select Product](#select-product)
 * [Prepare Device](#prepare-device)
@@ -12,7 +12,7 @@ If you don't want to use [Codespaces](../README.md#start-codespace) (recommended
 
 You can either use the terminal directly (continue reading below) or also use [VS Code](./getting_started_vscode.md) to setup the development environment.
 
-## Terminal
+## Get Started: Terminal
 
 ### Setup Environment
 

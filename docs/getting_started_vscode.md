@@ -1,7 +1,7 @@
-# ESP LowCode: Matter
+# VSCode
 
-* [ESP LowCode: Matter](#esp-lowcode-matter)
 * [VSCode](#vscode)
+* [Get Started: VSCode](#get-started-vscode)
 * [Installing Extensions](#installing-extensions)
 * [Setup Environment](#setup-environment)
 * [Start Creating](#start-creating)
@@ -12,7 +12,7 @@ If you don't want to use [Codespaces](../README.md#start-codespace) (recommended
 
 You can either use VS Code directly (continue reading below) or also use [Terminal](./getting_started_terminal.md) to setup the development environment.
 
-## VSCode
+## Get Started: VSCode
 
 ### Installing Extensions
 
@@ -32,7 +32,7 @@ These **buttons** are available on the **bottom of the screen (status bar)**. Th
 
 * **Select Product**: Start by selecting the product that you want to create
 * **Select Port**: Connect your **esp32c6** board to your computer via USB, and select the port
-* **Prepare Device**: This will erase the flash on the device and flash the prebuilt binaries to your esp32c6 board
+* **Prepare Device**: This will erase the flash on the device and flash the prebuilt LowCode framework binaries to your esp32c6 board
 * **Upload Configuration**: This will generate the required device certificates and the qr code for the device and flash them to the device
 * **Upload Code**: This will build, flash and run the code on the device
 

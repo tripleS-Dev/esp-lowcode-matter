@@ -1,4 +1,4 @@
-# LowCode Example Products
+# LowCode Products
 
 | Product Name          | Description                                                                                                  |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|
@@ -11,5 +11,6 @@
 
 ## Related Documents
 
-* [Create LowCode Product](./create_product.md)
-* [All Documents](./all_documents.md)
+* [Create LowCode Product](../docs/create_product.md)
+* [Components](../components/README.md)
+* [All Documents](../docs/all_documents.md)

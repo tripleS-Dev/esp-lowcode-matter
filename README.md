@@ -1,6 +1,6 @@
 # ESP LowCode: Matter
 
-ESP LowCode for Matter helps you build Matter devices quickly and easily and in a very lightweight way.
+ESP LowCode for Matter helps you build [Matter](https://developer.espressif.com/blog/matter/) devices quickly and easily and in a very lightweight way.
 
 This is currently only supported on ESP32-C6. We are working on supporting other ESP32 series as well. Checkout more in [discussions](https://github.com/espressif/esp-lowcode-matter/discussions).
 
@@ -49,7 +49,7 @@ There are also Codespaces commands (ctrl/cmd + shift + p) available with **"Lowc
 
 * **Select Product**: Start by selecting the product that you want to create which will also open the product code
 * **Select Port**: Connect your **esp32c6** board to your computer via USB, and select the port
-* **Prepare Device**: This will erase the flash on the device and flash the prebuilt binaries to your esp32c6 board
+* **Prepare Device**: This will erase the flash on the device and flash the prebuilt LowCode framework binaries to your esp32c6 board
 * **Upload Configuration**: This will generate the required device certificates and the qr code for the device and flash them to the device
 * **Upload Code**: This will build, flash and run the code on the device
 
@@ -57,7 +57,7 @@ Once you have followed these steps, you now have a fully functional Matter Produ
 
 ## Next Steps
 
-For additional information, you can refer to the following:
+Now that you have built and used one of the default products from this repository, you can start creating your own products.
 
 * [Create and customize your own product](./docs/create_product.md)
 * [Product Configuration](./docs/product_configuration.md)

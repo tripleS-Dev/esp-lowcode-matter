@@ -67,7 +67,7 @@ def process_directories(directories, output_csv, output_pickle):
 if __name__ == "__main__":
     directories = [
         os.path.expandvars(os.path.join('$ESP_MATTER_PATH', 'connectedhomeip', 'connectedhomeip', 'src', 'app', 'zap-templates', 'zcl', 'data-model', 'chip')),
-        # add more directories as needed
+        # add more directories if needed
     ]
     output_csv = 'attribute_bounds.csv'
     output_pickle = 'attribute_bounds.pkl'

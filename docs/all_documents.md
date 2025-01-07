@@ -9,5 +9,6 @@
 * [Getting Started: VSCode](./getting_started_vscode.md): Steps on getting started with lowcode vscode plugins/extension
 * [Matter Solutions](./matter_solutions.md): List all the matter solutions along with lowcode
 * [Product Configuration](./product_configuration.md): Customisation and configuration for product
+* [Products](../products/README.md): List all the out of the box supported products and their functionalities.
 * [Production Considerations](./production_considerations.md): Production considerations for lowcode product
 * [Programmer's Model](./programmer_model.md): Programmer's model for lowcode product

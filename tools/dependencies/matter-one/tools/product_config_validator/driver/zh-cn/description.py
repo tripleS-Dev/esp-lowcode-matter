@@ -265,9 +265,9 @@ lighting_config.disable_auto_on.description = "Disable turning on of the light"
 lighting_config.fades_ms.title = "Fade (in ms)"
 lighting_config.fades_ms.description = "Default ramp time in ms"
 lighting_config.cct_kelvin_min.title = "Minimum Color Temperature"
-lighting_config.cct_kelvin_min.description = "min colortemperature support by hardware in kelvin"
+lighting_config.cct_kelvin_min.description = "Min color temperature support by hardware in kelvin\nRange: 1500K~7000K\nDefault: 2000K"
 lighting_config.cct_kelvin_max.title = "Maximum Color Temperature"
-lighting_config.cct_kelvin_max.description = "max colortemperature support by hardware in kelvin"
+lighting_config.cct_kelvin_max.description = "Max color temperature support by hardware in kelvin\nRange: 1500K~7000K\nDefault: 7000K"
 lighting_config.beads_comb.title = "LED Beads Combination"
 lighting_config.beads_comb.description = "LED Beads Combination support by hardware\n• 1: C\n• 2: W\n• 3: CW\n• 4: RGB\n• 5: 4CH_RGBC\n• 6: 4CH_RGBCC\n• 7: 4CH_RGBW\n• 8: 4CH_RGBWW\n• 9: 5CH_RGBCW\n• 10: 5CH_RGBCC\n• 11: 5CH_RGBWW\n• 12: 5CH_RGBC\n• 13: 5CH_RGBW\n"
 lighting_config.enable_precise_cct_control.title = "Precise CCT Control"
@@ -316,15 +316,15 @@ config.curve_coe.description = "White balance\n"
 # Driver -> led non-gpio -> cctmap_cfg
 config = led_non_gpio.cctmap_cfg
 config.title = "Light Driver: CCT Map Configurations"
-config.description = "CCT Map configurations for light bulb. Applicable for light with precise cct control enable, [cct_kelvin, cct_percentage, r/g/b/c/w coefficients]"
-config.example = ['{"cct_map": { "table": [[2200, 0, 0.033, 0.033, 0.034, 0.45, 0.45],[7000, 100, 0.033, 0.033, 0.034, 0.45, 0.45]]}}']
+config.description = "CCT Map configurations for light bulb. Applicable for light with precise cct control enable\nMap data format is as follows:\n\t[[cct_kelvin, cct_percentage, coef_red, coef_green, coef_blue, coef_cold, coef_warm], ...]"
+config.example = ['{"cct_map": { "table": "[[2200, 0, 0.033, 0.033, 0.034, 0.45, 0.45],[7000, 100, 0.033, 0.033, 0.034, 0.45, 0.45]]"}}']
 config.table.title = "CCT Map Table"
 config.table.description = "CCT Map Table\n• cct: Color temperature in kelvin\n• cct_percentage: Percentage of color temperature\n• red: Red light output\n• green: Green light output\n• blue: Blue light output\n• cold: Cold white light output\n• warm: Warm white light output\n"
 
 # Driver -> led non-gpio -> colormap_cfg
 config = led_non_gpio.colormap_cfg
 config.title = "Light Driver: Color Map Configurations"
-config.description = "Color Map configurations for light bulb. Applicable for light with precise color control enable\nMap data format is as follows:\n\t[[hue, saturation_100_red, saturation_100_green, saturation_100_blue, saturation_50_red, saturation_50_green, saturation_50_blue, saturation_0_red, saturation_0_green, saturation_0_blue]]"
+config.description = "Color Map configurations for light bulb. Applicable for light with precise color control enable\nMap data format is as follows:\n\t[[hue, saturation_100_red, saturation_100_green, saturation_100_blue, saturation_100_cold, saturation_100_warm, saturation_50_red, saturation_50_green, saturation_50_blue, saturation_50_cold, saturation_50_warm, saturation_0_red, saturation_0_green, saturation_0_blue, saturation_0_cold, saturation_0_warm], ...]"
 config.example = ['{"color_map":{"table":"[[0,1,0,0,0,0,0.9120,0.0440,0.0440,0,0,0.4854,0.2573,0.2573,0,0],[15,0.9218,0.0782,0,0,0,0.8549,0.0907,0.0544,0,0,0.5112,0.2639,0.2248,0,0]]"}}']
 config.table.title = "Color Map Table"
 config.table.description = "Color Map Table. Add at least 12 sets of color data"
@@ -538,6 +538,36 @@ config.white_current_max.description = "Maximum white light current in mA"
 config.rgb_current_max.title= "RGB Current Max"
 config.rgb_current_max.description = "Maximum current of color light in mA"
 
+# Driver -> KP18058
+kp18058_driver = description.led_driver.kp18058_driver
+kp18058_driver.update(led_non_gpio)
+kp18058_driver.title = "Light Driver: KP18058 Light Driver"
+kp18058_driver.description = "KP18058 driver support"
+kp18058_driver.example = ['{"id":1000,"type":"ezc.driver.led","name":"kp18058","lighting_config":{"enable_gradient":true,"enable_memory":false,"enable_lowpower":false,"sync_change_brightness":true,"disable_auto_on":true,"beads_comb":9,"fades_ms":800,"enable_precise_cct_control":false},"kp18058_config":{"gpio_clock":7,"gpio_sda":3,"iic_khz":300,"out_red":2,"out_green":1,"out_blue":0,"out_cold":4,"out_warm":3,"rgb_current_max":7.5,"white_current_max":27.5,"advanced_cfg":{"disable_voltage_compensation":0,"compensation":310,"slope":7.5,"disable_chopping_dimming":0,"chopping_freq":250,"enable_rc_filter":1}},"hardware_config":{"white_min":10,"white_max":100,"white_power_max":100,"rgb_min":10,"rgb_max":100,"rgb_power_max":300},"gamma_config":{"enable_gamma_adjust":true,"gamma_red":100,"gamma_green":100,"gamma_blue":100,"gamma_cold":100,"gamma_warm":100,"curve_coe":1}}']
+kp18058_driver.name.title = "Name"
+kp18058_driver.name.description = "Applicable only if `kp18058` is selected as light driver"
+
+# Driver -> kp18058 -> kp18058_config
+config = kp18058_driver.kp18058_config
+config.update(description.i2c_base_cfg)
+config.title = "Light Driver: KP18058 Light Driver: Configurations"
+config.description = "Applicable if `kp18058` is selected"
+config.example = ['{"kp18058_config":{"gpio_clock":7,"gpio_sda":3,"iic_khz":300,"out_red":2,"out_green":1,"out_blue":0,"out_cold":4,"out_warm":3,"rgb_current_max":7.5,"white_current_max":27.5,"advanced_cfg":{"disable_voltage_compensation":0,"compensation":310,"slope":7.5,"disable_chopping_dimming":0,"chopping_freq":250,"enable_rc_filter":1}}}']
+
+config.white_current_max.title = "White Current Max"
+config.white_current_max.description = "Maximum white light current in mA"
+config.rgb_current_max.title= "RGB Current Max"
+config.rgb_current_max.description = "Maximum current of color light in mA"
+config.advanced_cfg.title= "Advanced Config"
+config.advanced_cfg.description = "KP18058 optional driver config"
+
+# Driver -> kp18058 -> kp18058_config -> advanced_cfg
+advanced_cfg = kp18058_driver.kp18058_config.advanced_cfg
+advanced_cfg.update(kp18058_driver)
+advanced_cfg.title = "KP18058 advanced params"
+advanced_cfg.description = "Custom advanced params"
+advanced_cfg.example = ['{"advanced_cfg":{"disable_voltage_compensation":0,"compensation":310,"slope":7.5,"disable_chopping_dimming":0,"chopping_freq":250,"enable_rc_filter":1}}']
+
 # Driver -> Roller blind base
 roller_blind_base = description.roller_blind_base
 roller_blind_base.section = "Driver"
@@ -646,3 +676,14 @@ config.description = "Applicable if hosted is selected"
 config.example = ['{"hosted_config": {"uart_driver_id": 1}}']
 config.uart_driver_id.title= "Unique Driver ID"
 config.uart_driver_id.description = "Unique driver id used to distinguish different Roller blind connected to host"
+
+# Driver -> Contact sensor
+config = description.contact_sensor_driver.contact_sensor_gpio
+config.title = "Contact Sensor Driver"
+config.description = "Contact Sensor driver"
+config.example = ['{"id": 1000, "type": "ezc.driver.contact_sensor", "name": "gpio", "gpio_config": {"gpio_num": 7, "active_level": 0}}']
+
+config = description.contact_sensor_driver.contact_sensor_gpio.gpio_config
+config.title = "Contact Sensor Driver: Configurations"
+config.description = "Contact Sensor driver configurations"
+config.example = ['{"gpio_config": {"gpio_num": 7, "active_level": 0}}']

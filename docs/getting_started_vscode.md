@@ -17,7 +17,7 @@ You can either use VS Code directly (continue reading below) or also use [Termin
 ### Installing Extensions
 
 * Click on the extensions icon on the left sidebar
-* Search for "Matter LowCode"
+* Search for "ESP LowCode: Matter"
 * Click on "Install"
 
 ### Setup Environment

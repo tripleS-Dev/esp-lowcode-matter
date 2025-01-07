@@ -1,29 +1,29 @@
 {
-    "name": "esp-lowcode-matter-v0.6",
-    "image": "mcr.microsoft.com/devcontainers/cpp:debian-12",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "GAEsp.vscode-lowcode-extension-beta",
-                "-ms-vscode.cmake-tools",
-                "-twxs.cmake"
-            ],
-            "settings": {
-                "extensions.ignoreRecommendations": true,
-                "files.exclude": {
-                    "esp-idf": false,
-                    "esp-amp": false,
-                    "**/.vscode": true
-                },
-                "C_Cpp.default.includePath": [
-                    "${workspaceFolder}/**",
-                    "/workspace/esp-lowcode-matter/**",
-                    "/workspace/esp-idf/**",
-                    "/workspace/esp-amp/**"
-                ],
-                "git.detectSubmodulesLimit": 25,
-                "editor.wordWrapColumn": 120,
-                "editor.scrollBeyondLastLine": false,
+	"name": "esp-lowcode-matter-v0.6",
+	"image": "mcr.microsoft.com/devcontainers/cpp:debian-12",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GAEsp.vscode-lowcode-extension",
+				"-ms-vscode.cmake-tools",
+				"-twxs.cmake"
+			],
+			"settings": {
+				"extensions.ignoreRecommendations": true,
+				"files.exclude": {
+					"esp-idf": false,
+					"esp-amp": false,
+					"**/.vscode": true
+				},
+				"C_Cpp.default.includePath": [
+					"${workspaceFolder}/**",
+					"/workspace/esp-lowcode-matter/**",
+					"/workspace/esp-idf/**",
+					"/workspace/esp-amp/**"
+				],
+				"git.detectSubmodulesLimit": 25,
+				"editor.wordWrapColumn": 120,
+				"editor.scrollBeyondLastLine": false,
                 "terminal.integrated.scrollback": 20000,
                 "workbench.startupEditor": "none",
                 "editor.snippetSuggestions": "inline"

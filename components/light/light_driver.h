@@ -74,9 +74,6 @@ typedef  int (* light_dev_get_channel_t) (uint8_t channel, uint8_t *val); /* not
 typedef  int (* light_dev_update_channels_t) (void);    /* use device-specific internal buffer to update the status of device */
 typedef  int (* light_dev_regist_channel_t) (uint8_t channel, gpio_num_t gpio);
 
-// TODO: not sure update() is needed or not. Update() allows us to configure multiple channels one by one and switch on them in the same time
-typedef void (* light_hal_dev_update_t) (int channel); /* not implemented */
-
 // this is the common handle among ledc, iic or ws2812
 typedef void *light_dev_handle_t;
 

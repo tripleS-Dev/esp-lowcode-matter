@@ -12,6 +12,13 @@ indicator.example = ['{"type": "ezc.product_common.indicator", "subtype": 0, "dr
 indicator.type.title = "Type"
 indicator.type.description = "Product Common type: ezc.product_common.indicator"
 
+indicator.config.title = "Indicator Configurations"
+indicator.config.description = "Indicator configuration settings"
+indicator.config.example = ['{"config": {"indicator_setup_timeout_en": false}}']
+
+indicator.config.indicator_setup_timeout_en.title = "Indicator setup timeout enable"
+indicator.config.indicator_setup_timeout_en.description = "If user does not set up the device on it's first bootup a timeout will occur, and on the subsequent bootups the light will display the config of 'setup_mode_end' (Even if the indicator will not show, setup mode will stay ON until timeout occurs). This will enable user to use the bulb as a normal bulb and will not show config for 'setup_mode_start' until the user opens the setup mode from another device or performs factory reset on the device"
+
 indicator.driver.title = "Indicator: Driver Configurations"
 indicator.driver.description = "Driver details for indicator."
 indicator.driver.example = ['{"driver": {"output": 1000}}']
@@ -445,14 +452,14 @@ zerodetect = description.zerodetect
 zerodetect.title = "Zero Detect"
 zerodetect.section = "Product Common"
 zerodetect.description = "Zero Detect configuration. This is an optional configuration."
-zerodetect.example = ['{"type": "ezc.product_common.zero_detect", "driver": { "zero_detect": 1005, "invalid_behaviors": 0, "lost_signal": 0 }}']
+zerodetect.example = ['{"type": "ezc.product_common.zero_detect", "driver": { "zero_detect": 1005, "invalid_behaviors": 0, "lost_signal": 0, "delay_us": 0 }}']
 
 zerodetect.type.title = "Type"
 zerodetect.type.description = "Product Common type: ezc.product_common.zero_detect. Devices with zero-crossing detection functionality should have corresponding configurations."
 
 zerodetect.driver.title = "Zero Detect: Driver Configurations"
 zerodetect.driver.description = "Driver details for Zero Detect"
-zerodetect.driver.example = ['{"driver": { "zero_detect": 1005, "invalid_behaviors": 0, "lost_signal": 0 }}']
+zerodetect.driver.example = ['{"driver": { "zero_detect": 1005, "invalid_behaviors": 0, "lost_signal": 0, "delay_us": 0 }}']
 
 # Product Common -> Zero Detect -> Driver
 driver = zerodetect.driver
@@ -464,3 +471,6 @@ driver.invalid_behaviors.description = "Behavior when the signal is invalid."
 
 driver.lost_signal.title = "Lost Signal Behaviors"
 driver.lost_signal.description = "Behavior when the signal is lost."
+
+driver.delay_us.title = "Delay after zero crossing"
+driver.delay_us.description = "Delay after zero crossing, unit: us."

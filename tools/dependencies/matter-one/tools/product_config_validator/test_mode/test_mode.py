@@ -65,8 +65,14 @@ class TestModeWindowCovering(TestModeBaseModel):
     type: Literal['ezc.test_mode.window_covering']
     subtype: Literal[1]
 
+class TestModeContactSensor(TestModeBaseModel): 
+    _path = description.test_mode_contact_sensor
+
+    type: Literal['ezc.test_mode.contact_sensor']
+    subtype: Literal[1]
+
 class TestModeLowCode(TestModeBaseModel):
     _path = description.test_mode_low_code
     type: Literal['ezc.test_mode.low_code']
 
-TestMode = Annotated[Union[TestModeCommon, TestModeBLE, TestModeSniffer, TestModeLight, TestModeSocket, TestModeWindowCovering, TestModeLowCode], Field(discriminator='type')]
+TestMode = Annotated[Union[TestModeCommon, TestModeBLE, TestModeSniffer, TestModeLight, TestModeSocket, TestModeWindowCovering, TestModeContactSensor, TestModeLowCode], Field(discriminator='type')]

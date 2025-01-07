@@ -50,7 +50,6 @@ static int low_code_transport_event_to_system(low_code_event_t *event)
         printf("%s: esp_amp_rpmsg_send_nocopy failed\n", TAG);
         return ESP_FAIL;
     }
-    // TODO: Check if the created `buffer` is freed later on, so that we don't have any memory leak
     return ESP_OK;
 }
 
@@ -126,14 +125,14 @@ static int low_code_transport_init(void)
 
 static int low_code_transport_get_event_from_system()
 {
-    // TODO: Try to call the API which polls for particular endpoint only
+    // TODO: call the API which polls for particular endpoint only
     esp_amp_rpmsg_poll(&esp_amp_device);
     return ESP_OK;
 }
 
 static int low_code_transport_get_feature_update_from_system()
 {
-    // TODO: Try to call the API which polls for particular endpoint only
+    // TODO: call the API which polls for particular endpoint only
     esp_amp_rpmsg_poll(&esp_amp_device);
     return ESP_OK;
 }

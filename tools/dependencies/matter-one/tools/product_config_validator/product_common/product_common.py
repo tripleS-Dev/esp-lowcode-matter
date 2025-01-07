@@ -14,7 +14,7 @@ module_name = f'product_common.{locale}.description'
 description_module = importlib.import_module(module_name)
 description = description_module.description
 
-supported_product_common = ("ezc.product_common.indicator", "ezc.product_common.back_light", "ezc.product_common.light_config", "ezc.product_common.factory_reset", "ezc.product_common.forced_rollback", 
+supported_product_common = ("ezc.product_common.indicator", "ezc.product_common.back_light", "ezc.product_common.light_config", "ezc.product_common.factory_reset", "ezc.product_common.forced_rollback",
                   "ezc.product_common.socket_input_mode", "ezc.product_common.socket_power", "ezc.product_common.socket_config", "ezc.product_common.window_covering_calibration",
                   "ezc.product_common.window_covering_config", "ezc.product_common.advertise_mac", "ezc.product_common.zero_detect", "ezc.product_common.temp_protect")
 
@@ -26,6 +26,10 @@ class Indicatorbasemodel(ProductCommonBaseModel):
     _path = description.indicator
     type: Literal["ezc.product_common.indicator"]
     subtype: Literal[0, 1]
+    class Config(ZeroCodeBaseModel):
+        _path = description.indicator.config
+        indicator_setup_timeout_en: Optional[StrictBool] = None
+    config: Optional[Config] = None
 
 class IndicatorNonHosted(Indicatorbasemodel):
     _path = description.indicator
@@ -47,9 +51,9 @@ class BackLight(ProductCommonBaseModel):
     _path = description.backlight
     class Driver(ZeroCodeBaseModel):
         _path = description.backlight.driver
-        input: ID
+        input: Optional[ID] = None
         indicator: ID
-        input_trigger_type: StrictInt = Field(ge=0,le=7)
+        input_trigger_type: Optional[Literal[0,1,2,3,4,5,6,7,8,9]] = None
         exclude_button: Optional[frozenset[ID]] = None
 
     type: Literal["ezc.product_common.back_light"]
@@ -184,6 +188,7 @@ class ZeroDetect(ProductCommonBaseModel):
         zero_detect: ID
         invalid_behaviors: StrictInt = Field(ge=0,le=3)
         lost_signal: StrictInt = Field(ge=0,le=3)
+        delay_us: Optional[StrictInt] = Field(ge=0,le=10000,default=0)
 
     type: Literal['ezc.product_common.zero_detect']
     driver: Driver

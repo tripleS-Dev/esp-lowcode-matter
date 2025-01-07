@@ -17,6 +17,7 @@ from os import path
 from pathlib import Path
 import sys
 from sys import exit
+import esptool
 
 from output_file_creation import *
 from qr_code import *
@@ -70,7 +71,7 @@ else:
 if os.getenv('MATTER_ONE_PATH'):
     sys.path.insert(0, os.path.join(os.getenv('MATTER_ONE_PATH'), 'tools'))
     sys.path.insert(0, os.path.join(os.getenv('MATTER_ONE_PATH'), 'tools', 'qr_code_image_generator'))
-    sys.path.insert(0, os.path.join(os.getenv('MATTER_ONE_PATH'), 'tools', 'product_config_validator'))
+    sys.path.insert(0, os.path.join(os.getenv('MATTER_ONE_PATH'), 'tools', 'product_validator'))
 else:
     print("Please set the MATTER_ONE_PATH environment variable.")
     exit(1)
@@ -88,7 +89,22 @@ from matter_one_config import *
 from matter_config import *
 from rainmaker_config import *
 from rainmaker_claim import *
-from json_validator import verify_product_config
+from product_validator import validate_product_data
+
+class bcolors:
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+
+def run_io_validation(product_path):
+    print("Running IO validation...")
+    ret, err_msg, warning_msg = io_check.config_io_check(product_path)
+    if ret:
+        print("IO validation completed successfully.")
+    else:
+        print("IO validation failed")
+    return ret
 
 def get_product_info_solution_type(products_path, product):
     product_path = os.path.join(products_path, product)
@@ -157,12 +173,13 @@ def create_output_csv_file(path, mac_address, no_matter, no_rainmaker, no_signat
         add_rainmaker_to_output_csv(path)
     finish_output_csv(path)
 
-def create_status_file(path, status='Success', description='Success', details=''):
+def create_status_file(path, status='Success', description='Success', details = '', warnings = list()):
     with open(os.path.join(path, 'status.json'), 'w+') as info_file:
         status_info = {
             "status": status,
             "description": description,
-            "details": details
+            "details": details,
+            "warnings": warnings
         }
         json.dump(status_info, info_file, indent=4)
 
@@ -172,6 +189,35 @@ def create_default_dir(mac_address, path):
     if not os.path.exists(path):
         os.makedirs(path)
     return path
+
+def detect_chip_and_mac(port):
+    if not port:
+        print("Port does not exist")
+        sys.exit(1)
+
+    command = ['--port', port, 'chip_id']
+
+    try:
+        sys.stdout = mystdout = StringIO()
+        esptool.main(command)
+        sys.stdout = sys.__stdout__
+
+    except esptool.FatalError:
+        sys.stdout = sys.__stdout__
+        print(sys.stdout)
+        sys.exit(1)
+
+    # Finds the first occurence of the line
+    # with the MAC Address from the output.
+    mac = next(filter(lambda line: 'MAC: ' in line,
+                      mystdout.getvalue().splitlines()))
+    chip = next(filter(lambda line: 'Detecting chip type... ' in line,
+                      mystdout.getvalue().splitlines()))
+    chip_name = chip.split('Detecting chip type... ')[1].replace('-', '').replace(' ', '').lower()
+    mac_addr = mac.split('MAC: ')[1].replace(':', '').upper()
+    print("MAC address: " + mac_addr)
+    print("Chip detected: "+ chip_name)
+    return mac_addr, chip_name
 
 def get_connected_device_details(port, mac_address, node_platform, test):
     if test == False:
@@ -183,16 +229,8 @@ def get_connected_device_details(port, mac_address, node_platform, test):
                 exit(1)
         else:
             print("Port provided is: " + port)
-
-        if node_platform == None:
-            chip = detect_chip(port=port)
-            node_platform = chip.CHIP_NAME.lower().replace(' ', '').replace('-', '')
-        if mac_address == None:
-            mac_address = get_node_mac(port)
-        if mac_address == None or node_platform == None:
-            print("Either none of both the mac_address and the node_platform must be specified")
-            exit(1)
-        node_platform = node_platform.replace('-', '')
+        if node_platform == None or mac_address == None:
+            mac_address, node_platform = detect_chip_and_mac(port=port)
         mac_address = mac_address.upper().replace(' ', '').replace('-', '').replace(':', '')
     else:
         print("Getting test details")
@@ -200,7 +238,8 @@ def get_connected_device_details(port, mac_address, node_platform, test):
         node_platform = "esp32c3"
         mac_address = "0123456789AB"
 
-    print("MAC address is: " + mac_address)
+    print("Chip is: " + node_platform)
+    print("Mac is: " + mac_address)
     return port, mac_address, node_platform
 
 def get_serial_port():
@@ -248,6 +287,8 @@ def get_args():
     parser.add_argument('--local_claim', default=False, action='store_true', help="Claim the device locally instead of using RainMaker")
     parser.add_argument("--deployment", default='ezc_prod', choices=['ezc_prod', 'ezc_stage', 'ezc_dev'], type=str, help='ZeroCode deployment for staging and dev. If nothing is provided `ezc_prod` is used.')
     parser.add_argument("--no_config_validation", default=False, action='store_true', help="Don't validate product config json file.")
+    parser.add_argument("--no_info_validation", default=False, action='store_true', help="Don't validate product info json file.")
+    parser.add_argument("--no_io_validation", default=False, action='store_true', help="Don't validate io of product_config.json file.")
     parser.add_argument("--not_save_cd_cert", default=False, action='store_true', help="Don't save cd_cert file if created")
     parser.add_argument('--no_signature', default=False, action='store_true', help="Do not create the signature file.")
     parser.add_argument('--no_ota_decryption', default=False, action='store_true', help="Do not include the OTA decryption key.")
@@ -289,22 +330,36 @@ def get_args():
         claim = True
         node_id = None
         mqtt_endpoint = None
-    return args.product, args.test, args.no_qrcode, no_flash, args.no_unencrypted_fctry, port, mac_address, node_platform, claim, node_id, mqtt_endpoint, args.serial_number, args.device_cert_path, args.products_path, args.certs_path, args.output_path, args.no_matter, args.no_rainmaker, args.local_claim, args.deployment, args.no_config_validation, args.not_save_cd_cert, args.no_signature, args.no_ota_decryption
+    return args.product, args.test, args.no_qrcode, no_flash, args.no_unencrypted_fctry, port, mac_address, node_platform, claim, node_id, mqtt_endpoint, args.serial_number, args.device_cert_path, args.products_path, args.certs_path, args.output_path, args.no_matter, args.no_rainmaker, args.local_claim, args.deployment, args.no_config_validation, args.no_info_validation, args.no_io_validation, args.not_save_cd_cert, args.no_signature, args.no_ota_decryption
 
 def main():
-    product, test, no_qrcode, no_flash, no_unencrypted_fctry, port, mac_address, node_platform, claim, node_id, mqtt_endpoint, serial_number, device_cert_path, products_path, certs_path, output_path, no_matter, no_rainmaker, local_claim, deployment, no_config_validation, not_save_cd_cert, no_signature, no_ota_decryption = get_args()
+    product, test, no_qrcode, no_flash, no_unencrypted_fctry, port, mac_address, node_platform, claim, node_id, mqtt_endpoint, serial_number, device_cert_path, products_path, certs_path, output_path, no_matter, no_rainmaker, local_claim, deployment, no_config_validation, no_info_validation, no_io_validation, not_save_cd_cert, no_signature, no_ota_decryption = get_args()
 
     if not no_config_validation:
         solution_type = get_product_info_solution_type(products_path, product)
         is_low_code = False
         if solution_type == "low_code":
             is_low_code = True
-        ret = verify_product_config(os.path.join(products_path, product, 'product_config.json'), None, is_low_code)
-        if ret != 0:
-            exit(1)
 
     port, mac_address, node_platform = get_connected_device_details(port, mac_address, node_platform, test)
     path = create_default_dir(mac_address, output_path)
+    product_path = os.path.join(products_path, product)
+
+    if not no_config_validation or not no_info_validation or not no_io_validation:
+        ret, description, details, warning_msg = validate_product_data(product_path, None, no_config_validation, no_info_validation, no_io_validation, is_low_code)
+        if not ret:
+            create_status_file(path, "Failure", description, details, warning_msg)
+            print(bcolors.FAIL + f"Failed to verify product data: {description}" + bcolors.ENDC)
+            print(bcolors.FAIL + f"Error message: {json.dumps(details, indent=4)}" + bcolors.ENDC)
+            if warning_msg:
+                print(bcolors.WARNING + f"Warnings: {warning_msg}" + bcolors.ENDC)
+            exit(1)
+        else:
+            print(bcolors.OKGREEN + f"Successfully Validated product data" + bcolors.ENDC)
+            if warning_msg:
+                print(bcolors.WARNING + f"Warnings: {warning_msg}" + bcolors.ENDC)
+    else:
+        print(bcolors.OKGREEN + f"Skipping product data validation" + bcolors.ENDC)
 
     esp_secure_cert_file_name = mac_address + '_esp_secure_cert.bin'
     esp_secure_cert_flash_address = '0xD000'
@@ -337,7 +392,7 @@ def main():
     else:
         print("Not flashing since test mfg was created or no_flash or no_unencrypted_fctry was set")
 
-    create_status_file(path)
+    create_status_file(path, "Success", "Successfully created files", "", warning_msg)
 
 if __name__ == '__main__':
     main()

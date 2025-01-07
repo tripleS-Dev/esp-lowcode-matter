@@ -15,12 +15,13 @@ class bcolors:
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
-def create_status_file(path, status='Success', description='Success', details=''):
+def create_status_file(path, status='Success', description='Success', details = '', warnings = list()):
     with open(os.path.join(path, 'status.json'), 'w+') as info_file:
         status_info = {
             "status": status,
             "description": description,
-            "details": details
+            "details": details,
+            "warnings": warnings    
         }
         json.dump(status_info, info_file, indent=4)
 
@@ -36,7 +37,8 @@ def generate_files(json_schema_file_path, json_documentation_file_path):
     generate_documentation(schema, json_documentation_file_path)
     print(bcolors.OKGREEN + "Successfully generated the JSON Documentation at: " + json_documentation_file_path + bcolors.ENDC)
 
-def verify_product_config(product_config_path, output_path, is_low_code):
+def verify_product_config(product_config_path, is_low_code):
+    warning_msg = ""
     # NOTE: This is called here because, this needs to be done after the locale is set
     from zerocode_product.zerocode_product_config import ZerocodeProductConfig
     from low_code_product.lowcode_product_config import LowcodeProductConfig
@@ -48,29 +50,16 @@ def verify_product_config(product_config_path, output_path, is_low_code):
                 product = ZerocodeProductConfig(**json.loads(json_file.read()))
         print(bcolors.OKGREEN + "Successfully Validated the product config file: {}".format(product_config_path) + bcolors.ENDC)
     except JSONDecodeError as e:
-        status = 'Failure'
         description = 'Product Config JSON File Format Invalid'
-        details = str(e)
-        if output_path != None:
-            create_status_file(output_path, status, description, details)
-        print(bcolors.FAIL + description)
-        print(e)
-        print(bcolors.ENDC)
-        return -1
+        details = str(e) 
+        return False, description, details, warning_msg
     except ValidationError as e:
-        print(bcolors.FAIL + "These Errors were found in the product_config: {}".format(product_config_path) + bcolors.ENDC)
         with open(product_config_path) as json_file:
-            error = error_handling(e, json.loads(json_file.read()))
-            status = 'Failure'
+            details = error_handling(e, json.loads(json_file.read()))
             description = 'Errors were found in the product config. Check the details for more info.'
-            details = json.dumps(error, indent=4)
-            if output_path != None:
-                create_status_file(output_path, status, description, details)
-            print(bcolors.FAIL + details + bcolors.ENDC)
-            print(description)
-        return -1
+            return False, description, details, warning_msg
     
-    return 0
+    return True, "Success", "Success", warning_msg
 
 def create_default_dir(path, locale):
     if not os.path.exists(path):
@@ -93,6 +82,7 @@ def main():
     product_config_path, output_path, is_low_code = get_args()
     # The locales need to be lower case for it to work in the backend
     supported_locales = ['en-us', 'zh-cn']
+    warning_msg = None
 
     for locale in supported_locales:
         print('Generating files for locale: ' + locale)
@@ -105,11 +95,20 @@ def main():
 
     if os.path.exists(product_config_path):
         print('Validating product config: ' + product_config_path)
-        ret = verify_product_config(product_config_path, output_path, is_low_code)
-        if ret != 0:
+        ret, description, details, warning_msg = verify_product_config(product_config_path, is_low_code)
+        if not ret:
+            create_status_file(output_path, "Failure", description, details, warning_msg)
+            print(bcolors.FAIL + description + bcolors.ENDC)
+            print(bcolors.FAIL + f"Details: {json.dumps(details, indent=4)}" + bcolors.ENDC)
+            if warning_msg:
+                print(bcolors.WARNING + f"Warnings: {warning_msg}" + bcolors.ENDC)
             exit(1)
 
-    create_status_file(output_path)
+    create_status_file(output_path, "Success", "Successfully Validated the product config file", "", warning_msg)
+    if product_config_path:
+        print(bcolors.OKGREEN + "Successfully Validated the product config file: " + product_config_path + bcolors.ENDC)
+    if warning_msg:
+        print(bcolors.WARNING + f"Warnings: {warning_msg}" + bcolors.ENDC)
 
 if __name__ == '__main__':
     main()

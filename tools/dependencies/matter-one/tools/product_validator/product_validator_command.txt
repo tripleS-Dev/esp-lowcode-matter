@@ -1,0 +1,1 @@
+python3 <scripts_path>/product_validator/matter-one/tools/product_validator/product_validator.py --product_path <product_path> --output_path <output_path> --no_info_validation

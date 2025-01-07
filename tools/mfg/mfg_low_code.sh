@@ -73,8 +73,8 @@ fi
 
 echo "Using .matter file: $matter_file"
 
-# Call main.py from any_device
-cd "$ESP_MATTER_PATH/examples/any_device/python-tools"
+# Call main.py from matter_data_model_interpreter
+cd "$ESP_MATTER_PATH/tools/matter_data_model_interpreter"
 python3 main.py "$matter_file"
 
 # Check if the script executed successfully
@@ -94,7 +94,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR/../mfg
 
 exit_code=0
-python3 mfg_gen.py --product configuration --products_path $product_folder --output_path $product_folder/configuration/output/$mac_address --local_claim --no_rainmaker --no_signature --no_ota_decryption --not_connected_device_details $chip $mac_address || exit_code=$?
+python3 mfg_gen.py --product configuration --products_path $product_folder --output_path $product_folder/configuration/output/$mac_address --local_claim --no_rainmaker --no_signature --no_ota_decryption --not_connected_device_details $chip $mac_address --no_io_validation --no_info_validation || exit_code=$?
 
 if [ $exit_code -ne 0 ]; then
     echo "Error: mfg_gen.py execution failed"

@@ -4,7 +4,7 @@ from typing_extensions import Annotated, Self
 from pydantic.functional_validators import AfterValidator
 from functools import partial
 
-from data_handler.var_handler import GPIOPin, validate_min_max, set_lightbulb_pin, check_lightbulb_output_config, check_lighting_config, check_color_map_str
+from data_handler.var_handler import GPIOPin, validate_min_max, set_lightbulb_pin, check_lightbulb_output_config, check_lighting_config, check_color_map_str, check_cct_map_str
 from data_handler.base_model import ZeroCodeBaseModel, get_locale
 
 import importlib
@@ -28,6 +28,11 @@ class HostedCfgRelay(ZeroCodeBaseModel):
 
 class led_GPIOCfg(GPIOCfg):
     _path = description.led_driver.led_gpio.gpio_config
+    # gpio_num: GPIOPin
+    # active_level: Literal[(0,1)]
+
+class ContactSensorGPIOCfg(GPIOCfg):
+    _path = description.contact_sensor_driver.contact_sensor_gpio.gpio_config
     # gpio_num: GPIOPin
     # active_level: Literal[(0,1)]
 
@@ -107,8 +112,8 @@ class LightCfg(ZeroCodeBaseModel):
     fades_ms: StrictInt = Field(gt=0)
     enable_precise_cct_control: Optional[StrictBool] = None
     enable_precise_color_control: Optional[StrictBool] = None
-    cct_kelvin_min: Optional[StrictInt] = None
-    cct_kelvin_max: Optional[StrictInt] = None
+    cct_kelvin_min: Optional[StrictInt] = Field(ge=1500,le=7000,default=2200)
+    cct_kelvin_max: Optional[StrictInt] = Field(ge=1500,le=7000,default=7000)
 
 class HardwareCfg(ZeroCodeBaseModel):
     _path = description.led_non_gpio.hardware_config
@@ -144,11 +149,14 @@ class CCTMapEntry(BaseModel):
 
 class CctMapCfg(ZeroCodeBaseModel):
     _path = description.led_non_gpio.cctmap_cfg
-    table: List[Tuple[StrictInt, StrictInt, StrictFloat, StrictFloat, StrictFloat, StrictFloat, StrictFloat]]
+    table: StrictStr
 
-    def __hash__(self):
-        # Hash the tuple representation of the table
-        return hash(tuple(self.table))
+    @model_validator(mode='before')
+    @classmethod
+    def check_cct_map_data(cls, data: Any) -> Any:
+        for key, value in data.items():
+            check_cct_map_str(value)
+        return data
 
 class ColorMapCfg(ZeroCodeBaseModel):
     _path = description.led_non_gpio.colormap_cfg
@@ -204,22 +212,19 @@ class I2CBaseCfg(ZeroCodeBaseModel):
         check_lightbulb_output_config('I2C')
         return data
 
-# TODO: verify if the steps value here is even valid, since some values do not match the documentation
 class SM2135ECfg(I2CBaseCfg):
     _path = description.led_driver.sm2135e_driver.sm2135e_config
     white_current_max: StrictInt = Field(ge=10,le=60,multiple_of=5)
     rgb_current_max: StrictInt = Field(ge=10,le=50,multiple_of=5)
 
-sm2135eh_white_current_max = list()
-for i in range(0,56,5):
-    sm2135eh_white_current_max.append(i)
-for i in range(59,73,4):
-    sm2135eh_white_current_max.append(i)
+sm2135eh_rgb_current_list = list()
+for i in range(9,45,5):
+    sm2135eh_rgb_current_list.append(i)
 
 class SM2135EHCfg(I2CBaseCfg):
     _path = description.led_driver.sm2135eh_driver.sm2135eh_config
-    white_current_max: Literal[tuple(sm2135eh_white_current_max)]
-    rgb_current_max: StrictInt = Field(ge=4,le=64,multiple_of=4)
+    white_current_max: Literal[(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 59, 63, 67, 72)]
+    rgb_current_max: Literal[tuple(sm2135eh_rgb_current_list)]
 
 class SM2235EGHCfg(I2CBaseCfg):
     _path = description.led_driver.sm2235egh_driver.sm2235egh_config
@@ -243,3 +248,18 @@ class BP1658CJCfg(I2CBaseCfg):
     _path = description.led_driver.bp1658cj_driver.bp1658cj_config
     white_current_max: StrictInt = Field(ge=0,le=75,multiple_of=5)
     rgb_current_max: StrictInt = Field(ge=0,le=150,multiple_of=10)
+
+class KP18058AdvancedCfg(ZeroCodeBaseModel):
+    _path = description.led_driver.kp18058_driver.kp18058_config.advanced_cfg
+    enable_voltage_compensation: StrictBool
+    compensation: Literal[140, 145, 150, 155, 160, 165, 170, 260, 270, 280, 290, 300, 310, 320, 330]
+    slope: Literal[7.5, 10.0, 12.5, 15.0]
+    enable_chopping_dimming: StrictBool 
+    chopping_freq: Literal[4000, 2000, 1000, 500]
+    enable_rc_filter: StrictBool
+
+class KP18058Cfg(I2CBaseCfg):
+    _path = description.led_driver.kp18058_driver.kp18058_config
+    white_current_max: StrictFloat = Field(ge=0,le=77.5,multiple_of=2.5)
+    rgb_current_max: StrictFloat = Field(ge=1.5,le=48,multiple_of=1.5)
+    advanced_cfg: Optional[KP18058AdvancedCfg] = None

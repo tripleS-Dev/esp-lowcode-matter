@@ -73,5 +73,6 @@ We’ve restructured some of the core Arduino functions to make them more descri
 * [Product Configuration](./product_configuration.md)
 * [Debugging](./debugging.md)
 * [Programmer's Model](./programmer_model.md)
+* [Products](../products/README.md)
 * [Getting Started: Codespaces](../README.md)
 * [All Documents](./all_documents.md)

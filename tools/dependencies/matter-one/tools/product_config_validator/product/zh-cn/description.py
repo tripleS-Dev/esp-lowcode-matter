@@ -33,13 +33,13 @@ light_data_model.temperature_default.title = "Temperature default"
 light_data_model.temperature_default.description = "Default temperature of the device\n"
 
 light_data_model.temperature_bootup.title = "Temperature Bootup"
-light_data_model.temperature_bootup.description = "Temperature of the device when it boots up\n• 2000 to 9000\n• -1: Previous value\n"
+light_data_model.temperature_bootup.description = "Temperature of the device when it boots up\n• 1500 to 7000\n• -1: Previous value\n"
 
-light_data_model.temperature_minimum.title = "Temperature Minimum"
-light_data_model.temperature_minimum.description = "Minimum temperature of the device\n• max: temperature_maximum_default\n"
+light_data_model.temperature_minimum_default.title = "Temperature Minimum"
+light_data_model.temperature_minimum_default.description = "Minimum temperature of the device\nRange: 1500K~7000K\nDefault: 2000K\nThe config should same as 'cct_kelvin_min' in driver config"
 
-light_data_model.temperature_maximum.title = "Temperature Maximum"
-light_data_model.temperature_maximum.description = "Maximum temperature of the device"
+light_data_model.temperature_maximum_default.title = "Temperature Maximum"
+light_data_model.temperature_maximum_default.description = "Maximum temperature of the device\nRange: 1500K~7000K\nDefault: 7000K\nThe config should same as 'cct_kelvin_max' in driver config"
 
 light_data_model.hue_default.title = "Hue Default"
 light_data_model.hue_default.description = "Default hue of the device\n"
@@ -86,36 +86,36 @@ light_dimmable.data_mode.example = ['"data_model":{"power_default":1,"power_boot
 light_temperature = description.light_temperature
 light_temperature.title = "Light: Temperature"
 light_temperature.description = "Light: Temperature: Product with temperature capabilities"
-light_temperature.example = ['{"type":"ezc.product.light","subtype":3,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
+light_temperature.example = ['{"type":"ezc.product.light","subtype":3,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
 light_temperature.subytype.title = "Subtype"
 light_temperature.subytype.description = "`3`: Represents Light Temperature"
 light_temperature.data_model.update(light_data_model)
 light_temperature.data_model.title = "Light: Temperature: Data Model"
 light_temperature.data_model.description = "Data Model for Light Temperature"
-light_temperature.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
+light_temperature.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
 
 light_temperature_color = description.light_temperature_color
 light_temperature_color.title = "Light: Temperature and Color"
 light_temperature_color.description = "Light: Temperature and Color: Product with temperature and color capabilities"
-light_temperature_color.example = ['{"type":"ezc.product.light","subtype":4,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
+light_temperature_color.example = ['{"type":"ezc.product.light","subtype":4,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
 light_temperature_color.subytype.title = "Subtype"
 light_temperature_color.subytype.description = "`4`: Represents Light Temperature color"
 light_temperature_color.data_model.update(light_data_model)
 light_temperature_color.data_model.title = "Light: Temperature and Color: Data Model"
 light_temperature_color.data_model.description = "Data Model for Light Temperature Color"
-light_temperature_color.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
+light_temperature_color.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1}}']
 
 light_temperature_color.subytype.title = "Subtype"
 light_temp_extend_color = description.light_temp_extend_color
 light_temp_extend_color.title = "Light: Temperature and Extended Color"
 light_temp_extend_color.description = "Light: Temperature and Extended Color: Product with temperature and extended color capabilities"
-light_temp_extend_color.example = ['{"type":"ezc.product.light","subtype":5,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1,"color_x_default":1,"color_y_default":1}}']
+light_temp_extend_color.example = ['{"type":"ezc.product.light","subtype":5,"driver":{"output":1000},"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1,"color_x_default":1,"color_y_default":1}}']
 light_temp_extend_color.subytype.title = "Subtype"
 light_temp_extend_color.subytype.description = "`5`: Represents Temperature Extended color"
 light_temp_extend_color.data_model.update(light_data_model)
 light_temp_extend_color.data_model.title = "Light: Temperature and Extended Color: Data Model"
 light_temp_extend_color.data_model.description = "Data Model for Light Temperature Extended Color"
-light_temp_extend_color.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":2000,"temperature_maximum_default":9000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1,"color_x_default":1,"color_y_default":1}}']
+light_temp_extend_color.data_model.example = ['{"data_model":{"power_default":1,"power_bootup":-1,"level_default":50,"level_bootup":-1,"color_mode_default":1,"color_mode_bootup":-1,"temperature_default":4000,"temperature_bootup":-1,"temperature_minimum_default":1500,"temperature_maximum_default":7000,"hue_default":180,"hue_bootup":-1,"saturation_default":100,"saturation_bootup":-1,"color_x_default":1,"color_y_default":1}}']
 light_temp_extend_color.subytype.title = "Subtype"
 
 productbase = description.productbase
@@ -149,6 +149,10 @@ driver.output.title = "Output"
 driver.output.description = "Output driver ID"
 driver.indicator.title = "Indicator"
 driver.indicator.description = "Indicator driver ID"
+driver.feedback_signal_input.title = "Feedback signal input ID"
+driver.feedback_signal_input.description = "Feedback signal input, used to get the status of the device when the device is controlled by multiple ways"
+driver.trigger_edge.title = "Trigger Edges"
+driver.trigger_edge.description = "Trigger edges for zero cross detection\n• 0: triggered on the positive edge\n• 1: triggered on the negative edge\n• 2: triggered on positive edge when turn on, negative edge when turn off\n• 3: triggered on negative edge when turn on, positive edge when turn off"
 driver.hosted.title = "Hosted"
 driver.hosted.description = "Whether the product is hosted or not\n• true: hosted product\n• false: non-hosted product"
 
@@ -252,3 +256,21 @@ datamodel.description = "Window covering datamodel configuration for product"
 datamodel.example = ['{"data_model":{"window_covering_type":1}}']
 datamodel.window_covering_type.title = "Window Covering Type"
 datamodel.window_covering_type.description = "Type of window covering\n• 0: Rollershade\n• 1: Rollershade - 2 Motor\n• 2: Rollershade - Exterior\n• 3: Rollershade - Exterior - 2 Motor\n• 4: Curtain/Drapery\n• 5: Awning\n• 6: Shutter\n• 7: Tilt Blind - Tilt only\n• 8: Tilt Blind - Lift and Tilt\n• 9: Projector Screen\n• -1: Other\n"
+
+# product -> Contact Sensor
+contact_sensor = description.contact_sensor
+contact_sensor.title = "Contact Sensor"
+contact_sensor.description = "Contact Sensor description and configurations"
+contact_sensor.update(productbase)
+contact_sensor.example = ['{"type":"ezc.product.contact_sensor","subtype":1,"driver":{"input":1000}}']
+contact_sensor.type.title = "Type"
+contact_sensor.type.description = "Product contact sensor: `ezc.product.contact_sensor`"
+contact_sensor.subtype.title = "Subtype"
+contact_sensor.subtype.description = "1: Contact Sensor"
+
+driver = contact_sensor.driver
+driver.title = "Contact Sensor: Driver Configurations"
+driver.description = "Contact Sensor driver configurations"
+driver.example = ['{"driver":{"input":1000}}']
+driver.input.title = "Input"
+driver.input.description = "Input driver ID"

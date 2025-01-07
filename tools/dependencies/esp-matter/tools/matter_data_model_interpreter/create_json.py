@@ -1,22 +1,6 @@
-import sys
 import os
 import json
-from bounds_lookup_module import BoundsLookup
-
-try:
-    from matter_idl.matter_idl_parser import CreateParser
-except ModuleNotFoundError:
-    import os
-    import sys
-    sys.path.append(os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__))))
-
-    from matter_idl.matter_idl_parser import CreateParser
-
-from matter_idl.matter_idl_types import (AccessPrivilege, ApiMaturity, Attribute, AttributeInstantiation, AttributeQuality,
-                                         AttributeStorage, Bitmap, Cluster, Command, CommandInstantiation, CommandQuality,
-                                         ConstantEntry, DataType, DeviceType, Endpoint, Enum, Event, EventPriority, EventQuality,
-                                         Field, FieldQuality, Idl, ParseMetaData, ServerClusterInstantiation, Struct, StructTag)
+from shared_imports import *
 
 def load_idl_text(file_path):
     with open(file_path, 'r') as file:

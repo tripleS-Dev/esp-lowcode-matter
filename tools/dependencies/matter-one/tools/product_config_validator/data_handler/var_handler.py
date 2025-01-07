@@ -244,10 +244,41 @@ def check_color_map_str(color_map: StrictStr):
         hue_value = row[0]
         if not (0 <= hue_value <= 359 and isinstance(hue_value, int)):
             raise ValueError(f"Hue value error: {hue_value} is not an integer between 0 and 359")
-
+            
         for i, value in enumerate(row[1:], start=1):
             if not (0 <= value <= 1):
-                raise ValueError(f"Color tuning value at index {i}: {value} out of range which should be a float value between 0 to 1")
-            if 0 < value < 1:
-                if not (isinstance(value, float) and round(value, 4) == value):
-                    raise ValueError(f"Color tuning value at index {i}: {value} error")              
+                raise ValueError(f"Color tuning value at index {i}: {value} out of range. It should be a float value between 0 to 1")
+            if (0 < value < 1):    
+                if isinstance(value, float):
+                    value_str = str(value)
+                    decimal = value_str.split('.')[1]
+                    if len(decimal) > 4:
+                        raise ValueError(f"Color tuning value at index {i}: {value} cannot have more than 4 decimal places")
+
+def check_cct_map_str(cct_map: StrictStr):
+    try:
+        cct_map_array = json.loads(cct_map)
+    except json.JSONDecodeError as e:
+        raise ValueError("Invalid JSON format") from e
+
+    for row in cct_map_array:
+        if len(row) != 7:
+            raise ValueError("Each row must contain 7 elements")
+
+        kelvin_value = row[0]
+        if not (1500 <= kelvin_value <= 7000 and isinstance(kelvin_value, int)):
+            raise ValueError(f"Kelvin value error: {kelvin_value} is not an integer between 1500 and 7000")
+    
+        cct_value = row[1]
+        if not (0 <= cct_value <= 100 and isinstance(cct_value, int)):
+            raise ValueError(f"CCT value error: {cct_value} is not an integer between 0 and 100")
+    
+        for i, value in enumerate(row[2:], start=2):
+            if not (0 <= value <= 1):
+                raise ValueError(f"CCT value at index {i}: {value} out of range. It should be a float value between 0 to 1")
+            if (0 < value < 1):
+                if isinstance(value, float):
+                    value_str = str(value)
+                    decimal = value_str.split('.')[1]
+                    if len(decimal) > 4:
+                        raise ValueError(f"CCT value at index {i}: {value} cannot have more than 4 decimal places")

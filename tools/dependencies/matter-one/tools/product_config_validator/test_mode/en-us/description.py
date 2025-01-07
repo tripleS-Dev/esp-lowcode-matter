@@ -110,3 +110,16 @@ test_mode_window_covering.type.title = "Type"
 test_mode_window_covering.type.description = "Test Mode type: ezc.test_mode.window_covering"
 test_mode_window_covering.subtype.title = "Subtype"
 test_mode_window_covering.subtype.description = "Test type:\n• 1: The window covering moves up and down alternatively, 3 times.\n• Default ssid: test_window_covering_1\n• Default panid: 0x198F\n• Default mac: EFEFEFEFEFEFEFEF\n• Default id: 03_01\n\n"
+
+# Test Mode -> Contact Sensor
+test_mode_contact_sensor = description.test_mode_contact_sensor
+test_mode_contact_sensor.update(test_mode)
+test_mode_contact_sensor.title = "Test Mode: Contact Sensor"
+test_mode_contact_sensor.section = "Test Mode"
+test_mode_contact_sensor.description = "Contact sensor related test modes"
+test_mode_contact_sensor.example = ['{"type": "ezc.test_mode.contact_sensor", "subtype": 1}']
+
+test_mode_contact_sensor.type.title = "Type"
+test_mode_contact_sensor.type.description = "Test Mode type: ezc.test_mode.contact_sensor"
+test_mode_contact_sensor.subtype.title = "Subtype"
+test_mode_contact_sensor.subtype.description = "Test type:\n• 1: Move the contact sensor from open to close and back to open, to see the logs generated according to the events that occur.\n• Default ssid: test_contact_sensor_1\n• Default panid: 0x198F\n• Default mac: 6767676767676767\n• Default id: 04_01\n\n"

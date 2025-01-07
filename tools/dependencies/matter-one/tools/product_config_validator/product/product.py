@@ -12,7 +12,7 @@ module_name = f'product.{locale}.description'
 description_module = importlib.import_module(module_name)
 description = description_module.description
 
-supported_product = ("ezc.product.light", "ezc.product.socket", "ezc.product.switch", "ezc.product.window_covering")
+supported_product = ("ezc.product.light", "ezc.product.socket", "ezc.product.switch", "ezc.product.window_covering", "ezc.product.contact_sensor")
 
 class ProductBaseModel(ZeroCodeBaseModel):
     type: Literal[supported_product]
@@ -48,11 +48,11 @@ class LightDataModel_3(LightDataModel_2):
 
     color_mode_default: StrictInt = Field(ge=1,le=4,default=1)
     color_mode_bootup: Literal[-1,1,2,3,4]
-    temperature_default: StrictInt = Field(ge=2000,le=9000,default=4000)
+    temperature_default: StrictInt = Field(ge=1500,le=7000,default=4000)
     # TODO: temperature_bootup has -1 as default value, but it cannot be -1 with the specification given
-    temperature_bootup: StrictInt = Field(ge=-1,le=9000)
-    temperature_minimum_default: StrictInt = Field(ge=2000,default=2000)
-    temperature_maximum_default: StrictInt = Field(le=9000,default=9000)
+    temperature_bootup: StrictInt = Field(ge=-1,le=7000)
+    temperature_minimum_default: StrictInt = Field(ge=1500,default=2200)
+    temperature_maximum_default: StrictInt = Field(le=7000,default=7000)
 
     _check_temperature_min_max = validate_min_max("temperature_minimum_default", "temperature_maximum_default")
 
@@ -115,6 +115,7 @@ class SocketBaseModel(ProductBaseModel):
         output: ID
         indicator: Optional[ID] = None
         feedback_signal_input: Optional[ID] = None
+        trigger_edge: Optional[Literal[0,1,2,3]] = None
         #TODO: Check JIRA-EZCH-84 for more details
         hosted: Optional[StrictBool] = Field(default=False)
 
@@ -141,7 +142,15 @@ class SocketDimmable(SocketBaseModel):
     subtype: Literal[2]
     data_model: Optional[SocketDataModel_2] = None
 
-Socket = Annotated[Union[SocketOnOff, SocketDimmable], Field(discriminator='subtype')]
+def validate_input_mode_trigger(socket: SocketBaseModel) -> SocketBaseModel:
+    if socket.driver.input_mode == 1:
+        if socket.driver.input_trigger_type is None:
+            raise ValueError("input_trigger_type must be present when input_mode is a Rocker Switch")
+        if socket.driver.input_trigger_type not in [8, 9]:
+            raise ValueError("input_trigger_type must be 8 or 9 when input_mode is a Rocker Switch")
+    return socket
+
+Socket = Annotated[Union[SocketOnOff, SocketDimmable], Field(discriminator='subtype'), AfterValidator(validate_input_mode_trigger)]
 
 # Switch model
 class Switch(ProductBaseModel):
@@ -180,4 +189,14 @@ class WindowCovering(ProductBaseModel):
     driver: Driver = Field(strict=True)
     data_model: Optional[DataModel] = None
 
-Product = Annotated[Union[Light, Socket, Switch, WindowCovering], Field(discriminator='type')]
+class ContactSensor(ProductBaseModel):
+    _path = description.contact_sensor
+    subtype: Literal[1]
+    class Driver(ZeroCodeBaseModel):
+        _path = description.contact_sensor.driver
+        input: ID
+
+    type: Literal["ezc.product.contact_sensor"]
+    driver: Driver = Field(strict=True)
+
+Product = Annotated[Union[Light, Socket, Switch, WindowCovering, ContactSensor], Field(discriminator='type')]

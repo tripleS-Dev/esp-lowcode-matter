@@ -3,7 +3,7 @@ from matter_enums import AttributeFlags, CommandFlags, EndpointFlags, ClusterFla
 import esp_matter_data_model_api_messages_pb2 as emdm_pb2
 from google.protobuf.internal.encoder import _VarintBytes
 
-skip_global_attributes = ['attributeList', 'acceptedCommandList', 'generatedCommandList']
+skip_global_attributes = ['attributeList', 'acceptedCommandList', 'generatedCommandList', 'eventList']
 
 def compute_bitmap(entries):
     bitmap_value = 0
@@ -272,8 +272,6 @@ def process_attribute(attribute, endpoint_id, cluster_id):
         
         # Set the bounds_max
         set_bounds_value(proto_msg.create_attribute_params.bounds_max, esp_matter_attribute_type, max_value)
-
-        # print("E: {} C: {} A: {} Min: {} Max: {}".format(endpoint_id, cluster_id, attribute['definition']['code'], min_value, max_value))
 
     # Serialize and return the protobuf message
     size = proto_msg.ByteSize()

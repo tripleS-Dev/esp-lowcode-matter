@@ -11,8 +11,8 @@ module_name = f'driver.{locale}.description'
 description_module = importlib.import_module(module_name)
 description = description_module.description
 
-supported_drivers = ("ezc.driver.button", "ezc.driver.relay", "ezc.driver.roller_blind", "ezc.driver.led", "ezc.driver.zero_detect", "ezc.driver.temp_sensor")
-supported_led_drivers = ("ws2812", "pwm", "bp5758d", "sm2135e", "sm2135eh", "sm2235egh", "sm2335egh", "bp1658cj", "gpio")
+supported_drivers = ("ezc.driver.button", "ezc.driver.relay", "ezc.driver.roller_blind", "ezc.driver.led", "ezc.driver.zero_detect", "ezc.driver.temp_sensor", "ezc.driver.contact_sensor")
+supported_led_drivers = ("ws2812", "pwm", "bp5758d", "sm2135e", "sm2135eh", "sm2235egh", "sm2335egh", "bp1658cj", "gpio", "kp18058")
 supported_temp_sensor_drivers = ("onchip", "ntc")
 
 # Contains common items of all the Drivers
@@ -179,9 +179,23 @@ class LedDriverGPIO(LedDriverBaseModel):
     name: Literal['gpio']
     gpio_config: led_GPIOCfg = Field(strict=True)
 
-# common annotated LedDriver
-LedDriver = Annotated[Union[LedDriverWS2812, LedDriverPWM, LedDriverBP5758D, LedDriverBP1658CJ, LedDriverSM, LedDriverGPIO], Field(title='LedDriver',discriminator='name')]
+class LedDriverKP18058(LedDriverNonGPIO):
+    _path = description.led_driver.kp18058_driver
+    name: Literal['kp18058']
+    kp18058_config: KP18058Cfg = Field(strict=True)
 
+# common annotated LedDriver
+LedDriver = Annotated[Union[LedDriverWS2812, LedDriverPWM, LedDriverBP5758D, LedDriverBP1658CJ, LedDriverSM, LedDriverGPIO, LedDriverKP18058], Field(title='LedDriver',discriminator='name')]
+
+# Contact Sensor Driver Model
+class ContactSensorDriverBaseModel(DriverBaseModel):
+    type: Literal['ezc.driver.contact_sensor']
+    name: Literal['gpio']
+
+class ContactSensorGPIODriver(ContactSensorDriverBaseModel):
+    _path = description.contact_sensor_driver.contact_sensor_gpio
+    name: Literal['gpio']
+    gpio_config: ContactSensorGPIOCfg = Field(strict=True)
 
 # Common Driver Annotation
-Driver = Annotated[Union[ButtonDriver, RelayDriver, RollerBlindDriver, LedDriver, ZeroDetectDriver, TempSensorDriver], Field(discriminator='type')]
+Driver = Annotated[Union[ButtonDriver, RelayDriver, RollerBlindDriver, LedDriver, ZeroDetectDriver, TempSensorDriver, ContactSensorGPIODriver], Field(discriminator='type')]

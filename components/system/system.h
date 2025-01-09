@@ -12,30 +12,132 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * @file system.h
+ * @brief System utilities component for LP core
+ *
+ * This component provides core system functionality for the Low Power (LP) core,
+ * including GPIO operations, timing functions, and basic system control operations.
+ */
+
 #pragma once
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Pin mode configuration options
+ */
 typedef enum {
-    INPUT,
-    OUTPUT
+    INPUT,    /**< Configure pin as input */
+    OUTPUT    /**< Configure pin as output */
 } pin_mode_t;
 
+/**
+ * @brief Pin level states
+ */
 typedef enum {
-    LOW = 0,
-    HIGH,
+    LOW = 0,  /**< Pin level low (0V) */
+    HIGH,     /**< Pin level high (3.3V/5V) */
 } pin_level_t;
 
-
+/**
+ * @brief Main system loop function
+ *
+ * This function should be called repeatedly in the main loop.
+ * It handles system tasks and updates.
+ */
 void system_loop();
+
+/**
+ * @brief System initialization function
+ *
+ * This function should be called once during system startup.
+ * It initializes system components and sets up required configurations.
+ */
 void system_setup();
+
+/**
+ * @brief Update system timers
+ *
+ * This function updates all system timers and should be called periodically.
+ * @note This function is called by system_loop()
+ */
 void system_timer_update();
+
+/**
+ * @brief Put the system to sleep for specified duration
+ *
+ * This is same as system_delay()
+ *
+ * @param seconds Number of seconds to sleep
+ */
 void system_sleep(uint32_t seconds);
+
+/**
+ * @brief Delay system execution for specified duration
+ *
+ * @param seconds Number of seconds to delay
+ */
 void system_delay(uint32_t seconds);
+
+/**
+ * @brief Millisecond delay function
+ *
+ * @param ms Number of milliseconds to delay
+ */
 void system_delay_ms(uint32_t ms);
+
+/**
+ * @brief Microsecond delay function
+ *
+ * @param us Number of microseconds to delay
+ */
 void system_delay_us(uint32_t us);
+
+/**
+ * @brief Get current system time in milliseconds
+ *
+ * This is the time since the system was booted.
+ * @return uint32_t Current system time in milliseconds
+ */
 uint32_t system_get_time();
+
+/**
+ * @brief Enable software interrupt
+ *
+ * Enables the software interrupt mechanism for the system.
+ * This is needed for components like button driver to work.
+ */
 void system_enable_software_interrupt();
+
+/**
+ * @brief Configure GPIO pin mode
+ *
+ * @param gpio_num GPIO pin number
+ * @param mode Pin mode (INPUT or OUTPUT)
+ */
 void system_set_pin_mode(int gpio_num, pin_mode_t mode);
+
+/**
+ * @brief Set digital output level
+ *
+ * @param gpio_num GPIO pin number
+ * @param level Output level (HIGH or LOW)
+ */
 void system_digital_write(int gpio_num, pin_level_t level);
+
+/**
+ * @brief Read digital input level
+ *
+ * @param gpio_num GPIO pin number
+ * @return int 1 for HIGH, 0 for LOW
+ */
 int system_digital_read(int gpio_num);
+
+#ifdef __cplusplus
+}
+#endif

@@ -10,6 +10,26 @@
 #include "color_format.h"
 #include "ulp_lp_core_print.h"
 
+typedef  int (* light_dev_init_t) (void);
+typedef void (* light_dev_deinit_t) (void);
+typedef  int (* light_dev_set_channel_t) (uint8_t channel, uint8_t val); /* write(channel, val) */
+typedef  int (* light_dev_get_channel_t) (uint8_t channel, uint8_t *val); /* not implemented */
+typedef  int (* light_dev_update_channels_t) (void);    /* use device-specific internal buffer to update the status of device */
+typedef  int (* light_dev_regist_channel_t) (uint8_t channel, gpio_num_t gpio);
+
+// this is the common handle among ledc, iic or ws2812
+typedef void *light_dev_handle_t;
+
+typedef struct {
+    light_dev_handle_t handle;
+    light_dev_init_t init;
+    light_dev_deinit_t deinit;
+    light_dev_set_channel_t set_channel;
+    light_dev_get_channel_t get_channel;
+    light_dev_update_channels_t update_channels;
+    light_dev_regist_channel_t regist_channel;
+} light_dev_if_t;
+
 typedef struct {
     uint8_t red;
     uint8_t green;
@@ -118,7 +138,7 @@ int light_driver_init(light_driver_config_t *config)
             printf("Failed to init device\n");
             g_light.dev.deinit();
         }
-        g_light.dev.regist_channel(LIGHT_CHANNEL_COMB_INVALID, config->io_conf.ws2812_io.ctrl_io); 
+        g_light.dev.regist_channel(LIGHT_CHANNEL_COMB_INVALID, config->io_conf.ws2812_io.ctrl_io);
         g_light.channel_comb = LIGHT_CHANNEL_COMB_3CH_RGB;
         g_light.channel.red = WS2812_CHANNEL_RED;
         g_light.channel.green = WS2812_CHANNEL_GREEN;

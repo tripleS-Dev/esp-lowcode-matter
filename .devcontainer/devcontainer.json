@@ -4,7 +4,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"GAEsp.vscode-lowcode-extension-beta",
+				"espressif.esp-lowcode",
 				"-ms-vscode.cmake-tools",
 				"-twxs.cmake"
 			],

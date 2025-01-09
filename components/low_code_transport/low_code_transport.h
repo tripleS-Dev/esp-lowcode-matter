@@ -12,6 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * @file low_code_transport.h
+ * @brief Communication transport layer for data exchange between cores
+ *
+ * This component implements the transport layer for communication between the main core
+ * and the LP core using RPMSG (Remote Processor Messaging) protocol. It handles data
+ * serialization, transmission, and callback management.
+ */
+
 #pragma once
 
-int low_code_transport_register_callbacks();
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * @brief Register transport layer callbacks
+ *
+ * This function registers the internal callback functions that will be called when data
+ * is received from the other core.
+ *
+ * This needs to be called at the beginning. It is called in system_setup() by default.
+ * @return int 0 on success, negative value on error
+ */
+int low_code_transport_register_callbacks(void);
+
+#ifdef __cplusplus
+}
+#endif

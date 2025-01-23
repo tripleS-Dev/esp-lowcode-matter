@@ -11,14 +11,15 @@ There are multiple ways to build Matter devices with Espressif.
 
 ## Easiest: ESP ZeroCode
 
-ESP ZeroCode is the simplest way to create Matter devices, requiring no coding at all. It provides:
+[ESP ZeroCode](https://zerocode.espressif.com) is the simplest way to create Matter devices, requiring no coding at all. It provides:
 
 * Web-based configuration interface
 * Ready device drivers
 * Ready products for common device types
 * Simple testing process through web interface
-* Ideal for prototyping
 * Ideal for quick production and launch
+* Ideal for prototyping
+
 
 ## Easy: ESP LowCode
 
@@ -36,7 +37,7 @@ ESP LowCode offers a balance between simplicity and customization:
 
 ## Advanced/Intermediate: ESP Matter SDK
 
-ESP Matter SDK provides full programmatic control:
+[ESP Matter SDK](https://github.com/espressif/esp-matter/) provides full programmatic control:
 
 * Complete Matter stack implementation
 * Native C/C++ development
@@ -51,7 +52,7 @@ ESP Matter SDK provides full programmatic control:
 
 ## Low Level/Intermediate: Connectedhomeip SDK
 
-The lowest level implementation offering maximum control:
+The [Connectedhomeip SDK](https://github.com/project-chip/connectedhomeip) is the lowest level implementation offering maximum control:
 
 * Direct access to Matter protocol stack
 * Maximum flexibility and customization
@@ -65,7 +66,7 @@ The lowest level implementation offering maximum control:
 | Coding Required | None | Minimal | Full | Full |
 | Customization | Limited | Moderate | High | High |
 | Development Time | Minutes | Hours | Days/Weeks | Weeks/Months |
-| Technical Expertise | None | Basic | Advanced | Expert |
+| Development Expertise | Minimal | Basic | Advanced | Expert |
 
 ## Related Documents
 

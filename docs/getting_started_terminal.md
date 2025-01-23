@@ -55,6 +55,8 @@ cd $LOW_CODE_PATH/products/$SELECTED_PRODUCT
 
 ### Prepare Device
 
+>(Note: Ensure that your hardware is properly set up and that USB port permissions are correctly configured. Refer [Port Permissions](./hardware_setup.md#port-permissions-for-usb-to-serial-converters) for OS specific instructions.)
+
 Erase the flash on the device and flash the pre-built binaries to the device. This only needs to be done once for each device.
 
 ```sh

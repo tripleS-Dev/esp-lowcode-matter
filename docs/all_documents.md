@@ -8,6 +8,7 @@
 * [Getting Started: Codespaces](../README.md): Getting started with lowcode and its features
 * [Getting Started: Terminal](./getting_started_terminal.md): Detailed description on getting started with lowcode on local machine
 * [Getting Started: VSCode](./getting_started_vscode.md): Steps on getting started with lowcode vscode plugins/extension
+* [Hardware Setup](./hardware_setup.md): Steps to configure and set permissions for hardware
 * [Matter Solutions](./matter_solutions.md): List of all the matter solutions along with lowcode
 * [Product Configuration](./product_configuration.md): Customisation and configuration for product
 * [Products](../products/README.md): List of all the out of the box supported products and their functionalities

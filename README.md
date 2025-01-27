@@ -48,7 +48,7 @@ The subsequent development steps are aligned in a sequence of buttons to take yo
 There are also Codespaces commands (ctrl/cmd + shift + p) available with **"Lowcode:"** prefix for the same.
 
 * **Select Product**: Start by selecting the product that you want to create which will also open the product code
-* **Select Port**: Connect your **esp32c6** board to your computer via USB, and select the port
+* **Select Port**: Connect your **esp32c6** board to your computer via USB, and select the port. Refer [Port Permissions](./hardware_setup.md#port-permissions-for-usb-to-serial-converters) for OS specific instructions.
 * **Prepare Device**: This will erase the flash on the device and flash the prebuilt LowCode framework binaries to your esp32c6 board
 * **Upload Configuration**: This will generate the required device certificates and the qr code for the device and flash them to the device
 * **Upload Code**: This will build, flash and run the code on the device

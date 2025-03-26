@@ -75,7 +75,7 @@ echo "Using .matter file: $matter_file"
 
 # Call main.py from matter_data_model_interpreter
 cd "$ESP_MATTER_PATH/tools/matter_data_model_interpreter"
-python3 main.py "$matter_file"
+python3 main.py "$matter_file" "$product_folder/configuration/output/$mac_address"
 
 # Check if the script executed successfully
 if [ $? -ne 0 ]; then

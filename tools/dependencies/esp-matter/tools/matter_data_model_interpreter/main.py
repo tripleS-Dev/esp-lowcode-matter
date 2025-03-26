@@ -46,18 +46,19 @@ def ensure_attribute_files():
         raise FileNotFoundError("Failed to create attribute_bounds.csv or attribute_bounds.pkl")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python main.py <path_to_.matter_file>")
+    if len(sys.argv) < 3:
+        print("Usage: python main.py <path_to_.matter_file> <output_files_path>")
         sys.exit(1)
 
     idl_file_path = sys.argv[1]
+    output_files_path = sys.argv[2]
 
     if not os.path.exists(idl_file_path):
         print(f"File not found: {idl_file_path}")
         sys.exit(1)
 
-    if not os.path.exists("out"):
-        os.makedirs("out")
+    if not os.path.exists(output_files_path):
+        os.makedirs(output_files_path)
 
     ensure_attribute_files()
 
@@ -65,11 +66,11 @@ def main():
     run_linter(idl_file_path)
 
     # Create JSON data model
-    json_file_path = os.path.join("out", "data_model.json")
+    json_file_path = os.path.join(output_files_path, "data_model.json")
     create_json_data_model(idl_file_path, json_file_path)
 
     # Create binary file from JSON data model
-    bin_file_path = os.path.join("out", "data_model.bin")
+    bin_file_path = os.path.join(output_files_path, "data_model.bin")
     create_binary_file(json_file_path, bin_file_path)
 
 if __name__ == "__main__":

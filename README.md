@@ -12,6 +12,8 @@ LowCode offers several key features that make the development and getting starte
 * Simple Arduino-like programming model for ease of use
 * Full Matter certification while maintaining simplicity
 
+NOTE: ESP LowCode is currently in beta, and we are actively working to enhance its capabilities for production readiness.
+
 ## Get Started
 
 With LowCode you can easily edit, build, flash and debug your device in the browser itself using GitHub [Codespaces](#open-codespace). It is basically VS Code in the browser.

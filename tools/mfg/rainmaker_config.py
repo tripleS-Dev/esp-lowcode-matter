@@ -20,7 +20,7 @@ import logging
 import pyqrcode
 
 from output_file_creation import *
-from claim import gen_hex_str
+from rmaker_tools.rmaker_claim.claim import gen_hex_str
 
 def add_rainmaker_to_csv(path):
     with open(os.path.join(path, 'mfg_config.csv'), 'a') as info_file:

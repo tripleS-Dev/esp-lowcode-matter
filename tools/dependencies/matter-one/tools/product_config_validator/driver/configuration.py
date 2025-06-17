@@ -33,12 +33,14 @@ class led_GPIOCfg(GPIOCfg):
 
 class ContactSensorGPIOCfg(GPIOCfg):
     _path = description.contact_sensor_driver.contact_sensor_gpio.gpio_config
+    enable_power_save: Optional[Literal[0,1]] = None
     # gpio_num: GPIOPin
     # active_level: Literal[(0,1)]
 
 class GPIOCfgButton(GPIOCfg):
     _path = description.button.gpio_driver.config
     long_press_time: StrictInt = Field(ge=0,le=65535,default=5)
+    short_press_time_ms: StrictInt = Field(ge=0,le=65535,default=180)
 
 class ADCCfgButton(ZeroCodeBaseModel):
     _path = description.button.adc_driver.config

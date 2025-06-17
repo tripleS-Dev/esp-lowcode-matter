@@ -169,6 +169,29 @@ factory_reset_3.example = ['{"type": "ezc.product_common.factory_reset", "subtyp
 factory_reset_3.subtype.title = "Subtype"
 factory_reset_3.subtype.description = "Factory Reset type: 3"
 
+# Product Common -> Factory Reset: Multipress
+factory_reset_4 = description.factory_reset_4
+factory_reset_4.update(factory_reset)
+factory_reset_4.title = "Factory Reset: Multipress"
+factory_reset_4.section = "Product Common"
+factory_reset_4.description = "Factory reset the device by multiple presses of a button."
+factory_reset_4.example = ['{"type": "ezc.product_common.factory_reset", "subtype": 4, "driver": {"input": 1000, "multipress_count": 3}, "auto_trigger": true, "immediately_trigger": true}']
+
+factory_reset_4.driver.title = "Factory Reset: Multipress: Driver Configurations"
+factory_reset_4.driver.description = "Driver details for factory reset"
+factory_reset_4.driver.example = ['{"driver": {"input": 1000, "multipress_count": 3}}']
+
+# Product Common -> Factory Reset: Multipress -> Driver
+driver = factory_reset_4.driver
+driver.input.title = "Input"
+driver.input.description = "Input Driver ID for factory reset."
+
+driver.alternative_input.title = "Alternate Input"
+driver.alternative_input.description = "Alternate Input Driver ID for factory reset."
+
+driver.multipress_count.title = "Multipress Count"
+driver.multipress_count.description = "Number of times the button needs to be pressed to trigger factory reset."
+
 # Product Common -> Forced Rollback: Power Cycle
 forcedrollback = description.forcedrollback
 forcedrollback.title = "Forced Rollback"
@@ -229,7 +252,7 @@ driver.input_mode.title = "Input driver mode"
 driver.input_mode.description = "What is the type of input:\n• 0: Push Button\n• 1: Rocker Switch\n"
 
 driver.input_trigger_type.title = "Input Trigger Type"
-driver.input_trigger_type.description = "When to trigger the input:\n• 0: Press Down\n• 1: Press Up\n• 2: Repeat Press\n• 3: Repeat Press Release\n• 4: Single Click\n• 5: Double Click\n• 6: Long Press Start\n• 7: Long Press Hold\n\n"
+driver.input_trigger_type.description = "When to trigger the input:\n• 0: Press Down\n• 1: Press Up\n• 2: Repeat Press\n• 3: Repeat Press Release\n• 4: Single Click\n• 5: Double Click\n• 6: Long Press Start\n• 7: Long Press Hold• 8: trigger on/off when rocker switch is pressed\n• 9: trigger toggle when rocker switch is pressed\n\n"
 
 driver.indicator.title = "Indicator"
 driver.indicator.description = "Indicator Driver ID for socket power."

@@ -1,14 +1,23 @@
-import esp_matter_data_model_api_messages_pb2 as emdm_pb2
+# SPDX-FileCopyrightText: 2025 Espressif Systems (Shanghai) CO LTD
+# SPDX-License-Identifier: Apache-2.0
 import json
-import sys
 import os
+import sys
+
 from google.protobuf.internal.decoder import _DecodeVarint32
+from matter_data_model_serializer.matter_data_model_conversion import (
+    esp_matter_data_model_api_messages_pb2 as emdm_pb2,
+)
+
 
 def read_protobuf_messages(file_path):
-    messages = []
+    """
+    Generator function that reads Protobuf messages one by one from the given file.
+    Yields each message in JSON (dict) form.
+    """
     index = 0
 
-    with open(file_path, 'rb') as f:
+    with open(file_path, "rb") as f:
         while True:
             # Read the size of the next message (varint)
             buf = f.read(1)
@@ -34,19 +43,17 @@ def read_protobuf_messages(file_path):
             function_call = emdm_pb2.FunctionCall()
             function_call.ParseFromString(message_data)
 
-            # Convert the message to JSON
+            # Convert the message to JSON (dict)
             message_json = json.loads(function_call_to_json(function_call))
-            message_json['message_index'] = index
-            
-            # Append to the message list
-            messages.append(message_json)
+            message_json["message_index"] = index
+
+            yield message_json
             index += 1
-            
-    return messages
+
 
 def function_call_to_json(function_call):
     result = {"function": emdm_pb2.FunctionCall.FunctionType.Name(function_call.function)}
-    
+
     if function_call.HasField("create_attribute_params"):
         result["create_attribute_params"] = create_attribute_params_to_json(function_call.create_attribute_params)
     elif function_call.HasField("create_command_params"):
@@ -58,14 +65,18 @@ def function_call_to_json(function_call):
     elif function_call.HasField("create_endpoint_params"):
         result["create_endpoint_params"] = create_endpoint_params_to_json(function_call.create_endpoint_params)
     elif function_call.HasField("endpoint_add_device_type_params"):
-        result["endpoint_add_device_type_params"] = endpoint_add_device_type_params_to_json(function_call.endpoint_add_device_type_params)
-    
+        result["endpoint_add_device_type_params"] = endpoint_add_device_type_params_to_json(
+            function_call.endpoint_add_device_type_params
+        )
+
     return json.dumps(result, default=str)
+
 
 def create_attribute_params_to_json(params):
     def extract_val(val):
         return {
-            key: value for key, value in {
+            key: value
+            for key, value in {
                 "b": val.b if val.HasField("b") else None,
                 "i": val.i if val.HasField("i") else None,
                 "f": val.f if val.HasField("f") else None,
@@ -79,8 +90,9 @@ def create_attribute_params_to_json(params):
                 "u64": val.u64 if val.HasField("u64") else None,
                 "a": val.a.elements.hex() if val.HasField("a") else None,
                 "char_string": val.char_string if val.HasField("char_string") else None,
-                "octet_string": val.octet_string.hex() if val.HasField("octet_string") else None
-            }.items() if value is not None
+                "octet_string": val.octet_string.hex() if val.HasField("octet_string") else None,
+            }.items()
+            if value is not None
         }
 
     return {
@@ -90,51 +102,56 @@ def create_attribute_params_to_json(params):
         "flags": params.flags,
         "val": {
             "type": emdm_pb2.EspMatterValType.Name(params.val.type),
-            "val": extract_val(params.val.val)
+            "val": extract_val(params.val.val),
         },
         "max_val_size": params.max_val_size,
         "bounds_min": extract_val(params.bounds_min),
-        "bounds_max": extract_val(params.bounds_max)
+        "bounds_max": extract_val(params.bounds_max),
     }
+
 
 def create_command_params_to_json(params):
     return {
         "endpoint_id": params.endpoint_id,
         "cluster_id": params.cluster_id,
         "command_id": params.command_id,
-        "flags": params.flags
+        "flags": params.flags,
     }
+
 
 def create_event_params_to_json(params):
     return {
         "endpoint_id": params.endpoint_id,
         "cluster_id": params.cluster_id,
-        "event_id": params.event_id
+        "event_id": params.event_id,
     }
+
 
 def create_cluster_params_to_json(params):
     return {
         "endpoint_id": params.endpoint_id,
         "cluster_id": params.cluster_id,
-        "flags": params.flags
+        "flags": params.flags,
     }
 
+
 def create_endpoint_params_to_json(params):
-    return {
-        "endpoint_id": params.endpoint_id,
-        "flags": params.flags
-    }
+    return {"endpoint_id": params.endpoint_id, "flags": params.flags}
+
 
 def endpoint_add_device_type_params_to_json(params):
     return {
         "endpoint_id": params.endpoint_id,
         "device_type_id": params.device_type_id,
-        "device_type_version": params.device_type_version
+        "device_type_version": params.device_type_version,
     }
+
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python data-model-binary-decoder.py <path_to_.bin_file>")
+        print(
+            "Usage: python -m matter_data_model_serializer.utils.matter_data_model_deserializer <path_to_data_model.bin>"
+        )
         sys.exit(1)
 
     bin_file_path = sys.argv[1]
@@ -143,15 +160,17 @@ def main():
         print(f"File not found: {bin_file_path}")
         sys.exit(1)
 
-    messages = read_protobuf_messages(bin_file_path)
-
     base_filename = os.path.splitext(bin_file_path)[0]
-    json_file_path = f"{base_filename}_decoded.json"
+    jsonl_file_path = f"{base_filename}_decoded.jsonl"
 
-    with open(json_file_path, 'w') as json_file:
-        json.dump(messages, json_file, indent=4)
+    # Open the .jsonl file and write each message line by line.
+    with open(jsonl_file_path, "w") as jsonl_file:
+        for message in read_protobuf_messages(bin_file_path):
+            # Dump the message as JSON on a new line
+            jsonl_file.write(json.dumps(message) + "\n")
 
-    print(f"Decoded messages written to: {json_file_path}")
+    print(f"Decoded messages written to: {jsonl_file_path}")
+
 
 if __name__ == "__main__":
     main()

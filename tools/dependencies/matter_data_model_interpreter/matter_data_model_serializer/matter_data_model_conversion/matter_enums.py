@@ -1,4 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Espressif Systems (Shanghai) CO LTD
+# SPDX-License-Identifier: Apache-2.0
 from enum import IntFlag
+
 
 def calculate_flag_value(enum_class, flag_list):
     flag_value = enum_class(0)
@@ -8,6 +11,7 @@ def calculate_flag_value(enum_class, flag_list):
         else:
             raise ValueError(f"Flag '{flag}' not found in {enum_class.__name__}")
     return flag_value
+
 
 class AttributeFlags(IntFlag):
     ATTRIBUTE_FLAG_NONE = 0x00
@@ -19,7 +23,8 @@ class AttributeFlags(IntFlag):
     ATTRIBUTE_FLAG_SINGLETON = 0x20
     ATTRIBUTE_FLAG_NULLABLE = 0x40
     ATTRIBUTE_FLAG_OVERRIDE = 0x80  # ATTRIBUTE_FLAG_NULLABLE << 1 (0x40 << 1 = 0x80)
-    ATTRIBUTE_FLAG_DEFERRED = 0x100 # ATTRIBUTE_FLAG_NULLABLE << 2 (0x40 << 2 = 0x100)
+    ATTRIBUTE_FLAG_DEFERRED = 0x100  # ATTRIBUTE_FLAG_NULLABLE << 2 (0x40 << 2 = 0x100)
+
 
 class CommandFlags(IntFlag):
     COMMAND_FLAG_NONE = 0x00
@@ -27,10 +32,12 @@ class CommandFlags(IntFlag):
     COMMAND_FLAG_ACCEPTED = 0x02
     COMMAND_FLAG_GENERATED = 0x04
 
+
 class EndpointFlags(IntFlag):
     ENDPOINT_FLAG_NONE = 0x00
     ENDPOINT_FLAG_DESTROYABLE = 0x01
     ENDPOINT_FLAG_BRIDGE = 0x02
+
 
 class ClusterFlags(IntFlag):
     CLUSTER_FLAG_NONE = 0x00
@@ -40,6 +47,7 @@ class ClusterFlags(IntFlag):
     CLUSTER_FLAG_PRE_ATTRIBUTE_CHANGED_FUNCTION = 0x20
     CLUSTER_FLAG_SERVER = 0x40
     CLUSTER_FLAG_CLIENT = 0x80
+
 
 def print_flag_dictionary(enum_class):
     print(f"Parsed Flags Dictionary for {enum_class.__name__}:")

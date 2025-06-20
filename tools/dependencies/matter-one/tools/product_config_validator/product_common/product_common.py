@@ -100,7 +100,18 @@ class FactoryResetHosted(FactoryResetBaseModel):
     _path = description.factory_reset_3
     subtype: Literal[3]
 
-FactoryReset = Annotated[Union[FactoryResetOnOff, FactoryResetLongPress, FactoryResetHosted], Field(title="Factory Reset",discriminator='subtype')]
+class FactoryResetMultipress(FactoryResetBaseModel):   
+    _path = description.factory_reset_4
+    class DriverInput(ZeroCodeBaseModel):
+        _path = description.factory_reset_4.driver
+        input: ID
+        alternative_input: Optional[ID] = None
+        multi_press_count: Optional[Annotated[StrictInt, Field(ge=2)]] = None
+
+    subtype: Literal[4]
+    driver: DriverInput
+
+FactoryReset = Annotated[Union[FactoryResetOnOff, FactoryResetLongPress, FactoryResetHosted, FactoryResetMultipress], Field(title="Factory Reset",discriminator='subtype')]
 
 class ForcedRollback(ProductCommonBaseModel):
     _path = description.forcedrollback
@@ -125,6 +136,23 @@ class SocketPower(ProductCommonBaseModel):
         input_mode: Optional[Literal[(0,1)]] = None
         input_trigger_type: Optional[Literal[0,1,2,3,4,5,6,7,8,9]] = None
         indicator: Optional[ID] = None
+
+        @model_validator(mode='after')
+        def validate_input_mode_trigger(self) -> 'Driver':
+            if self.input_mode is None:
+                return self
+            if self.input_trigger_type is None:
+                if self.input_mode == 1:
+                    raise ValueError("input_trigger_type must be present when input_mode is a Rocker Switch.")
+                else:
+                    return self
+            if self.input_mode == 0:
+                if self.input_trigger_type in [8, 9]:
+                    raise ValueError("input_trigger_type must not be 8 or 9 when input_mode is a Push Button")
+            elif self.input_mode == 1:
+                if self.input_trigger_type not in [8, 9]:
+                    raise ValueError("input_trigger_type must be 8 or 9 when input_mode is a Rocker Switch")
+            return self
 
     type: Literal['ezc.product_common.socket_power']
     driver: Driver = Field(strict=True)

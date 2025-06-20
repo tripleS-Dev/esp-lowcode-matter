@@ -143,11 +143,21 @@ class SocketDimmable(SocketBaseModel):
     data_model: Optional[SocketDataModel_2] = None
 
 def validate_input_mode_trigger(socket: SocketBaseModel) -> SocketBaseModel:
+    if socket.driver.input_mode is None:
+        return socket
+    if socket.driver.input_trigger_type is None:
+        if socket.driver.input_mode == 1:
+            raise ValueError("input_trigger_type must be present when input_mode is a Rocker Switch.")
+        else:
+            return socket
     if socket.driver.input_mode == 1:
         if socket.driver.input_trigger_type is None:
             raise ValueError("input_trigger_type must be present when input_mode is a Rocker Switch")
         if socket.driver.input_trigger_type not in [8, 9]:
             raise ValueError("input_trigger_type must be 8 or 9 when input_mode is a Rocker Switch")
+    elif socket.driver.input_mode == 0:
+        if socket.driver.input_trigger_type in [8, 9]:
+            raise ValueError("input_trigger_type must not be 8 or 9 when input_mode is a Push Button")
     return socket
 
 Socket = Annotated[Union[SocketOnOff, SocketDimmable], Field(discriminator='subtype'), AfterValidator(validate_input_mode_trigger)]

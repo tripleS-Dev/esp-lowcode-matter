@@ -84,3 +84,4 @@ else
 fi
 
 python3 -m pip install -r "${LOW_CODE_PATH}/tools/mfg/requirements.txt"
+python3 -m pip install -r "${LOW_CODE_PATH}/tools/mfg/requirements_fixes.txt"

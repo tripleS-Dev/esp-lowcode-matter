@@ -12,7 +12,7 @@ idf_path = args['idf_path']
 config_env_path = "{}/config.env".format(build_path)
 
 # These components are present in IDF_PATH but are required for low_code
-exception_config = ['ulp', 'log', 'soc']
+exception_config = ['ulp', 'log', 'soc', 'esp_hw_support']
 
 # edit the config.env file
 with open(config_env_path, 'r') as config_env_file:

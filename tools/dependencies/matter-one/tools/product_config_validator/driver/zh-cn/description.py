@@ -20,7 +20,7 @@ gpiobutton = description.button.gpio_driver
 gpiobutton.update(buttonbase)
 gpiobutton.title = "Button Driver: GPIO Driver"
 gpiobutton.description = "Applicable if GPIO is selected as Button Driver"
-gpiobutton.example = ['{"id": 1000,"type": "ezc.driver.button","name": "gpio", "gpio_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5}}']
+gpiobutton.example = ['{"id": 1000,"type": "ezc.driver.button","name": "gpio", "gpio_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5,"short_press_time_ms": 800}}']
 gpiobutton.name.title = "Button name"
 gpiobutton.name.description = "Button subtype: GPIO"
 
@@ -28,20 +28,22 @@ gpiobutton.name.description = "Button subtype: GPIO"
 config = gpiobutton.config
 config.title = "Button Driver: GPIO Configurations"
 config.description = "Configuration for GPIO button, applicable if `ezc.driver.gpio` is selected"
-config.example = ['{"gpio_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5}}']
+config.example = ['{"gpio_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5,"short_press_time_ms": 800}}']
 config.gpio_num.title = "GPIO pin number"
 config.gpio_num.description = "Input GPIO for the driver. Range of values depend on the chip"
 config.active_level.title = "Button Active Level"
 config.active_level.description = "When is the input detected, is it active_high or active_low\n• 0: Active low. The input is detected when the input pin is connected to GND\n• 1: Active high. The input is detected when the input pin is connected to VCC\n"
 config.long_press_time.title = "Long Press Time"
 config.long_press_time.description = "Time in seconds for long press event to be detected."
+config.short_press_time_ms.title = "Short Press Time"
+config.short_press_time_ms.description = "Time in milliseconds to detect a short button press. The default is 180ms. If you want to detect multiple button presses (e.g. double-click, triple-click), set this to a higher value to give enough time between presses. Otherwise, with the default timing, a 'Button pressed' event will trigger before you can press the button again."
 
 # Driver -> Button -> adc_driver
 adcbutton = description.button.adc_driver
 adcbutton.update(buttonbase)
 adcbutton.title = "Button Driver: ADC Driver"
 adcbutton.description = "Applicable if ADC is selected as Button Driver"
-adcbutton.example = ['{"id": 1000,"type": "ezc.driver.button","name": "adc", "adc_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5}}']
+adcbutton.example = ['{"id": 1000,"type": "ezc.driver.button","name": "adc", "adc_config": {"gpio_num": 9,"active_level": 0,"long_press_time": 5,"short_press_time_ms": 800}}']
 adcbutton.name.title = "Button name"
 adcbutton.name.description = "Button subtype: ADC"
 
@@ -49,7 +51,7 @@ adcbutton.name.description = "Button subtype: ADC"
 config = adcbutton.config
 config.title = "Button Driver: ADC Configurations"
 config.description = "Configuration for ADC button, applicable if `ezc.driver.gpio` is selected"
-config.example = ['{"adc_config": {"adc_channel": 0,"button_index": 1,"min": 100,"max": 500,"long_press_time": 5}}']
+config.example = ['{"adc_config": {"adc_channel": 0,"button_index": 1,"min": 100,"max": 500,"long_press_time": 5,"short_press_time_ms": 800}}']
 config.adc_channel.title = "ADC Channel"
 config.adc_channel.description = "Input ADC for the driver. Range of values depend on the chip"
 config.button_index.title = "Button Index"
@@ -60,6 +62,8 @@ config.max.title = "Max Voltage"
 config.max.description = "max voltage in mv corresponding to the button"
 config.long_press_time.title = "Long Press Time"
 config.long_press_time.description = "Time in seconds for long press event to be detected."
+config.short_press_time_ms.title = "Short Press Time"
+config.short_press_time_ms.description = "Time in milliseconds to detect a short button press. The default is 180ms. If you want to detect multiple button presses (e.g. double-click, triple-click), set this to a higher value to give enough time between presses. Otherwise, with the default timing, a 'Button pressed' event will trigger before you can press the button again."
 
 # Driver -> Button -> hosted_driver
 hostedbutton = description.button_driver.button_hosted

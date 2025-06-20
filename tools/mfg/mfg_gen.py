@@ -26,47 +26,10 @@ if not os.getenv('REPOS_PATH'):
     os.environ['REPOS_PATH'] = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
     print("Setting REPOS_PATH to " + os.getenv('REPOS_PATH'))
 
-if (not os.getenv('IDF_PATH')) and os.getenv('REPOS_PATH'):
-    if os.path.exists(os.path.join(os.getenv('REPOS_PATH'), 'esp-idf')):
-        os.environ['IDF_PATH'] = os.path.join(os.getenv('REPOS_PATH'), 'esp-idf')
-        print("Setting IDF_PATH to " + os.getenv('IDF_PATH'))
-
-if (not os.getenv('ESP_RMAKER_PATH')) and os.getenv('REPOS_PATH'):
-    if os.path.exists(os.path.join(os.getenv('REPOS_PATH'), 'esp-rainmaker')):
-        os.environ['ESP_RMAKER_PATH'] = os.path.join(os.getenv('REPOS_PATH'), 'esp-rainmaker')
-        print("Setting ESP_RMAKER_PATH to " + os.getenv('ESP_RMAKER_PATH'))
-
-if (not os.getenv('ESP_SECURE_CERT_PATH')) and os.getenv('REPOS_PATH'):
-    if os.path.exists(os.path.join(os.getenv('REPOS_PATH'), 'esp_secure_cert_mgr')):
-        os.environ['ESP_SECURE_CERT_PATH'] = os.path.join(os.getenv('REPOS_PATH'), 'esp_secure_cert_mgr')
-        print("Setting ESP_SECURE_CERT_PATH to " + os.getenv('ESP_SECURE_CERT_PATH'))
-
 if (not os.getenv('MATTER_ONE_PATH')) and os.getenv('REPOS_PATH'):
     if os.path.exists(os.path.join(os.getenv('REPOS_PATH'), 'matter-one')):
         os.environ['MATTER_ONE_PATH'] = os.path.join(os.getenv('REPOS_PATH'), 'matter-one')
         print("Setting MATTER_ONE_PATH to " + os.getenv('MATTER_ONE_PATH'))
-
-if os.getenv('IDF_PATH'):
-    sys.path.insert(0, os.path.join(os.getenv('IDF_PATH'), 'components', 'nvs_flash', 'nvs_partition_generator'))
-else:
-    print("Please set the IDF_PATH environment variable.")
-    exit(1)
-
-if os.getenv('ESP_RMAKER_PATH'):
-    sys.path.insert(0, os.path.join(os.getenv('ESP_RMAKER_PATH'), 'cli', 'rmaker_tools', 'rmaker_claim'))
-    sys.path.insert(0, os.path.join(os.getenv('ESP_RMAKER_PATH'), 'cli', 'rmaker_cmd'))
-    sys.path.insert(0, os.path.join(os.getenv('ESP_RMAKER_PATH'), 'cli', 'rmaker_lib'))
-    sys.path.insert(0, os.path.join(os.getenv('ESP_RMAKER_PATH'), 'cli'))
-else:
-    print("Please set the ESP_RMAKER_PATH environment variable.")
-    exit(1)
-
-if os.getenv('ESP_SECURE_CERT_PATH'):
-    sys.path.insert(0, os.path.join(os.getenv('ESP_SECURE_CERT_PATH'), 'tools'))
-    sys.path.insert(0, os.path.join(os.getenv('ESP_SECURE_CERT_PATH'), 'tools', 'esp_secure_cert'))
-else:
-    print("Please set the ESP_SECURE_CERT_PATH environment variable.")
-    exit(1)
 
 if os.getenv('MATTER_ONE_PATH'):
     sys.path.insert(0, os.path.join(os.getenv('MATTER_ONE_PATH'), 'tools'))
@@ -81,9 +44,7 @@ import glob
 import serial
 
 import esp_idf_nvs_partition_gen.nvs_partition_gen as nvs_partition_gen
-from esptool.cmds import detect_chip
-from claim import get_node_mac
-from claim import flash_nvs_partition_bin
+from rmaker_tools.rmaker_claim.claim import flash_nvs_partition_bin
 
 from matter_one_config import *
 from matter_config import *

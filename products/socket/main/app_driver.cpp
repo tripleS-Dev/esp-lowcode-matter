@@ -69,9 +69,6 @@ int app_driver_init()
     /* Initialize relay */
     relay_driver_init(RELAY_GPIO_NUM);
 
-    /* Enable intterupts for button */
-    system_enable_software_interrupt();
-
     /* Initialize button */
     button_config_t btn_cfg = {
         .gpio_num = BUTTON_GPIO_NUM,

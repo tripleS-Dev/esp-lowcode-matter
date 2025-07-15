@@ -60,6 +60,8 @@ typedef enum {
     LOW_CODE_FEATURE_ID_TEMPERATURE = 4004,  /*!< Temperature sensing/control */
     LOW_CODE_FEATURE_ID_COOLING_SETPOINT = 4005, /*!< Cooling setpoint control */
     LOW_CODE_FEATURE_ID_HEATING_SETPOINT = 4006, /*!< Heating setpoint control */
+    LOW_CODE_FEATURE_ID_TEMPERATURE_SENSOR_VALUE = 5001,  /*!< Temperature sensor */
+    LOW_CODE_FEATURE_ID_OCCUPANCY_SENSOR_VALUE = 6001,  /*!< Occupancy sensor */
     LOW_CODE_FEATURE_ID_MAX = UINT32_MAX    /*!< Maximum feature ID value */
 } low_code_feature_id_t;
 
@@ -75,9 +77,6 @@ typedef enum {
     LOW_CODE_VALUE_TYPE_INTEGER,            /*!< Signed integer value type */
     LOW_CODE_VALUE_TYPE_UNSIGNED_INTEGER,   /*!< Unsigned integer value type */
     LOW_CODE_VALUE_TYPE_FLOAT,              /*!< Float value type */
-    LOW_CODE_VALUE_TYPE_UINT8,              /*!< 8-bit unsigned integer */
-    LOW_CODE_VALUE_TYPE_INT16,              /*!< 16-bit signed integer */
-    LOW_CODE_VALUE_TYPE_UINT16,             /*!< 16-bit unsigned integer */
     LOW_CODE_VALUE_TYPE_STRING,             /*!< String value type */
     LOW_CODE_VALUE_TYPE_OCTET_STRING,       /*!< Octet string value type */
     LOW_CODE_VALUE_TYPE_ARRAY,              /*!< Array value type */

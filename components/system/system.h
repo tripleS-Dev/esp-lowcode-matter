@@ -23,10 +23,21 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * @brief System software timer handle.
+ */
+typedef void *system_timer_handle_t;
+
+/**
+ * @brief Callback function type for timer events
+ */
+typedef void (* system_timer_cb_t)(system_timer_handle_t timer_handle, void *user_data);
 
 /**
  * @brief Pin mode configuration options
@@ -105,6 +116,51 @@ void system_delay_us(uint32_t us);
  * @return uint32_t Current system time in milliseconds
  */
 uint32_t system_get_time();
+
+/**
+ * @brief Create system timer
+ *
+ * @param callback Callback function to execute when timer expires
+ * @param arg   Argument to pass to callback
+ * @param timeout_ms timer period, in microseconds
+ * @param periodic Whether timer needs to be periodic or one-shot
+ *
+ * @return sytem_timer_handle if successful else NULL
+ */
+system_timer_handle_t system_timer_create(system_timer_cb_t callback, void *arg, int timeout_ms, bool periodic);
+
+/**
+ * @brief Start system timer
+ *
+ * @param handle system_timer_handle_t created using system_timer_create
+ *
+ * @return
+ *      - 0 on success
+ *      - -1 on failure
+ */
+int system_timer_start(system_timer_handle_t handle);
+
+/**
+ * @brief Stop system timer
+ *
+ * @param handle system_timer_handle_t created using system_timer_create
+ *
+ * @return
+ *      - 0 on success
+ *      - -1 on failure
+ */
+int system_timer_stop(system_timer_handle_t handle);
+
+/**
+ * @brief Delete system timer
+ *
+ * @param handle system_timer_handle_t created using system_timer_create
+ *
+ * @return
+ *      - 0 on success
+ *      - -1 on failure
+ */
+int system_timer_delete(system_timer_handle_t handle);
 
 /**
  * @brief Enable software interrupt

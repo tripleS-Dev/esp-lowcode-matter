@@ -76,7 +76,7 @@ class ProductInfo(BaseModel,extra='forbid'):
     module: StrictStr
     flash_size: Literal["2MB", "4MB"]
     secure_boot: Literal["enabled", "disabled"]
-    product_type: Literal["socket", "light", "window_covering", "switch", "all", "hosted", "contact_sensor"]
+    product_type: Literal["socket", "light", "window_covering", "switch", "all", "hosted", "contact_sensor", "temperature_sensor", "occupancy_sensor"]
     solution_type: Optional[Literal["low_code", "zero_code"]] = None
 
     @model_validator(mode='after')

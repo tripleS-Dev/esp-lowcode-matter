@@ -1,0 +1,8 @@
+menu "LD2420 Occupancy Sensor"
+
+    config MAX_LD2420_OCCUPANCY_SENSOR
+        int "Max number of LD2420 occupancy sensor"
+        default 1
+        help
+            Max LD2420 occupancy sensor supported
+endmenu

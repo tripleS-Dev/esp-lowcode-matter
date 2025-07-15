@@ -65,6 +65,32 @@ uint32_t system_get_time()
     return esp_amp_platform_get_time_ms();
 }
 
+system_timer_handle_t system_timer_create(system_timer_cb_t callback, void *arg, int timeout_ms, bool periodic)
+{
+    lp_sw_timer_config_t timer_cfg = {
+        .periodic = periodic,
+        .timeout_ms = timeout_ms,
+        .handler = callback,
+        .arg = arg
+    };
+    return lp_sw_timer_create(&timer_cfg);
+}
+
+int system_timer_start(system_timer_handle_t handle)
+{
+    return lp_sw_timer_start(handle);
+}
+
+int system_timer_stop(system_timer_handle_t handle)
+{
+    return lp_sw_timer_stop(handle);
+}
+
+int system_timer_delete(system_timer_handle_t handle)
+{
+    return lp_sw_timer_delete(handle);
+}
+
 void system_enable_software_interrupt()
 {
     ulp_lp_core_sw_intr_enable(true);

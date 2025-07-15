@@ -13,6 +13,36 @@ In LowCode, the messages are primarily of two types:
 1. **Events**: These are system level events that define the state of the device. For example, the HP Core sends an event to the LP Core to indicate that the device is ready. Or the LP Core sends an event to the HP Core to factory reset the device.
 2. **Feature Data**: These are updates to the features of the device. For example, the LP Core sends an event to the HP Core when the power state of the device changes. Or HP Core sends a message to the LP Core when some Ecosystem is used to change the power state of the device.
 
+```mermaid
+flowchart TD
+
+    %% Setup Subgraph
+    subgraph SETUP["🛠️ Setup"]
+        A["🟢 System Initialization"]
+        B["⚙️ Driver Configuration<br>(app_driver_init)"]
+        A --> B
+    end
+
+    %% Event Handling Subgraph
+    subgraph EV["📦 Event Handling"]
+        D1["📥 System → Application<br>(event_from_system)"]
+        D2["📤 Application → System<br>(low_code_event_to_system)"]
+    end
+
+    %% Feature Handling Subgraph
+    subgraph FT["📦 Feature Handling"]
+        E1["📥 System → Application<br>(feature_update_from_system)"]
+        E2["📤 Application → System<br>(low_code_feature_update_to_system)"]
+    end
+
+    B --> C["🔁 Application Main Loop"]
+    C --> EV & FT
+    EV --> Loop["🔁 Loop"]
+    FT --> Loop
+```
+
+For detailed information on the LowCode API and system communication workflow, refer the [Template Product](../products/template/).
+
 ## Related Documents
 
 * [Create LowCode Product](./create_product.md)

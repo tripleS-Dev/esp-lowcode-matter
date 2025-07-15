@@ -74,9 +74,6 @@ int app_driver_init()
     relay_driver_init(RELAY1_GPIO_NUM);
     relay_driver_init(RELAY2_GPIO_NUM);
 
-    /* Enable interrupts for buttons */
-    system_enable_software_interrupt();
-
     /* Initialize button 1 */
     button_config_t btn1_cfg = {
         .gpio_num = BUTTON1_GPIO_NUM,

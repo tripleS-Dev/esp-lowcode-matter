@@ -3,6 +3,7 @@
 | Component Name          | Description                                                                                                  |
 |-------------------------|--------------------------------------------------------------------------------------------------------------|
 | button                  | Button input driver component supporting both HP (High Power) and LP (Low Power) GPIO configurations         |
+| display_ssd1306         | OLED display driver component for SSD1306 using I2C interface, supporting text and basic graphics rendering  |
 | light                   | PWM and WS2812 light control component supporting various channel combinations (RGB, RGBCW, etc.)            |
 | low_code                | Core low code implementation component                                                                       |
 | low_code_transport      | Communication transport layer component for data exchange between the cores                                  |

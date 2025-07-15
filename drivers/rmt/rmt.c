@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "lp_rmt.h"
+#include "rmt.h"
 
 static rmt_hal_context_t lpRmtHalContext;
 
@@ -48,24 +48,24 @@ static void __rmt_hal_tx_channel_reset(rmt_hal_context_t *hal, uint32_t channel)
 }
 
 // Initialize RMT module on LP core
-bool lp_rmt_init_device(void) {
+bool rmt_init_device(void) {
 
     printf("Initialize RMT module on LP core...\n");
 
     // enable the bus clock for the RMT peripheral
-    rmt_ll_enable_bus_clock(LP_RMT_DEFAULT_GROUP, true);
-    rmt_ll_reset_register(LP_RMT_DEFAULT_GROUP);
+    rmt_ll_enable_bus_clock(RMT_DEFAULT_GROUP, true);
+    rmt_ll_reset_register(RMT_DEFAULT_GROUP);
     // hal layer initialize
     __rmt_hal_init(&lpRmtHalContext);
     // no division for group clock source, to achieve highest resolution
-    rmt_ll_set_group_clock_src(lpRmtHalContext.regs, LP_RMT_DEFAULT_TX_CHANNEL, LP_RMT_DEFAULT_CLK_SRC, 1, 1, 0);
+    rmt_ll_set_group_clock_src(lpRmtHalContext.regs, RMT_DEFAULT_TX_CHANNEL, RMT_DEFAULT_CLK_SRC, 1, 1, 0);
     rmt_ll_enable_group_clock(lpRmtHalContext.regs, true);
 
     return true;
 }
 
 // Deinitialize RMT module on LP core
-bool lp_rmt_deinit_device(void) {
+bool rmt_deinit_device(void) {
 
     printf("Deinitialize RMT module on LP core...\n");
 
@@ -74,16 +74,16 @@ bool lp_rmt_deinit_device(void) {
     // hal layer deinitialize
     __rmt_hal_deinit(&lpRmtHalContext);
     // disable bus clock
-    rmt_ll_enable_bus_clock(LP_RMT_DEFAULT_GROUP, false);
+    rmt_ll_enable_bus_clock(RMT_DEFAULT_GROUP, false);
 
     return true;
 }
 
-bool lp_rmt_create_default_tx_channel(lp_rmt_channel_t* defaultChannel) {
+bool rmt_create_default_tx_channel(rmt_channel_t* defaultChannel) {
     // use default tx channel (channel 0)
-    defaultChannel->channalId = LP_RMT_DEFAULT_TX_CHANNEL;
+    defaultChannel->channalId = RMT_DEFAULT_TX_CHANNEL;
     // use default clock resolution (40MHz)
-    defaultChannel->clkResolutionHz = LP_RMT_DEFAULT_CLK_RESOLUTION;
+    defaultChannel->clkResolutionHz = RMT_DEFAULT_CLK_RESOLUTION;
     // use default GPIO pin as output
     defaultChannel->gpioPin = BLINK_GPIO;
     // use default clock
@@ -91,7 +91,7 @@ bool lp_rmt_create_default_tx_channel(lp_rmt_channel_t* defaultChannel) {
     return true;
 }
 
-static bool lp_rmt_config_gpio(lp_rmt_channel_t* channel) {
+static bool rmt_config_gpio(rmt_channel_t* channel) {
 
     printf("Initialize and configure GPIO to work with RMT on LP core...\n");
 
@@ -110,7 +110,7 @@ static bool lp_rmt_config_gpio(lp_rmt_channel_t* channel) {
     return true;
 }
 
-bool lp_rmt_config_tx_channel(lp_rmt_channel_t* channel)
+bool rmt_config_tx_channel(rmt_channel_t* channel)
 {
     printf("Configure RMT channel on LP core...\n");
 
@@ -121,7 +121,7 @@ bool lp_rmt_config_tx_channel(lp_rmt_channel_t* channel)
     // use RTC_FAST_CLK_FREQ_APPROX if HP in Light/Deep sleep status
     // use XTAL_CLK_FREQ for more accurate control
     if (channel->groupClkResolutionHz == 0) {
-        channel->groupClkResolutionHz = LP_RMT_DEFAULT_CLK_RESOLUTION;
+        channel->groupClkResolutionHz = RMT_DEFAULT_CLK_RESOLUTION;
     }
     channel->readlDiv = channel->groupClkResolutionHz / channel->clkResolutionHz;
     // Limit Clock Dividor between 1 and 256
@@ -148,12 +148,12 @@ bool lp_rmt_config_tx_channel(lp_rmt_channel_t* channel)
     // disable interrupt
     rmt_ll_enable_interrupt(lpRmtHalContext.regs, 0b11111111111111, false);
 
-    lp_rmt_config_gpio(channel);
+    rmt_config_gpio(channel);
 
     return true;
 }
 
-bool lp_rmt_send_bytes(void* dataBuffer, size_t numBits, lp_rmt_channel_t* channel) {
+bool rmt_send_bytes(void* dataBuffer, size_t numBits, rmt_channel_t* channel) {
 
     // printf("Begin to send Bytes through RMT channel %lu\n", channel->channalId);
     rmt_ll_tx_stop(lpRmtHalContext.regs, channel->channalId);

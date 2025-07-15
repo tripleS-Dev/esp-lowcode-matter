@@ -7,6 +7,7 @@ list(APPEND SDKCONFIG_DEFAULTS "sdkconfig.defaults")
 
 list(APPEND EXTRA_COMPONENT_DIRS
     ../../components
+    ../../drivers
 )
 
 set(PROJECT_VER "1.0")

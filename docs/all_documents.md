@@ -5,6 +5,7 @@
 * [Debugging](./debugging.md): Debugging the lowcode firmware
 * [Device Setup](./device_setup.md): Steps to setup device
 * [Discussions](https://github.com/espressif/esp-lowcode-matter/discussions): Discussions on lowcode
+* [Drivers](../drivers/README.md): List of all the peripheral drivers and their functionalities
 * [Getting Started: Codespaces](../README.md): Getting started with lowcode and its features
 * [Getting Started: Terminal](./getting_started_terminal.md): Detailed description on getting started with lowcode on local machine
 * [Getting Started: VSCode](./getting_started_vscode.md): Steps on getting started with lowcode vscode plugins/extension

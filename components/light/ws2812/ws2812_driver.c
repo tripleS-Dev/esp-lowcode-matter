@@ -1,29 +1,29 @@
 #include "ws2812_driver.h"
 
-static lp_rmt_channel_t ws2812RmtChannel;
+static rmt_channel_t ws2812RmtChannel;
 static ws2812_buffer_t ws2812Buffer;
 
-#define LP_RMT_DEFAULT_TX_CHANNEL       (0)
-#define LP_RMT_DEFAULT_CLK_RESOLUTION   XTAL_CLK_FREQ
+#define RMT_DEFAULT_TX_CHANNEL       (0)
+#define RMT_DEFAULT_CLK_RESOLUTION   XTAL_CLK_FREQ
 
 int ws2812_driver_init(void) {
-    lp_rmt_init_device();
+    rmt_init_device();
     return 0;
 }
 
 int ws2812_driver_regist_channel(uint8_t channel, gpio_num_t gpio)
 {
-    ws2812RmtChannel.channalId = LP_RMT_DEFAULT_TX_CHANNEL;
+    ws2812RmtChannel.channalId = RMT_DEFAULT_TX_CHANNEL;
     // use default clock resolution (40MHz)
-    ws2812RmtChannel.clkResolutionHz = LP_RMT_DEFAULT_CLK_RESOLUTION;
+    ws2812RmtChannel.clkResolutionHz = RMT_DEFAULT_CLK_RESOLUTION;
     // use default GPIO pin as output
     ws2812RmtChannel.gpioPin = gpio;
     // use default clock
     ws2812RmtChannel.groupClkResolutionHz = 0;
 
-    // lp_rmt_create_default_tx_channel(&ws2812RmtChannel);
+    // rmt_create_default_tx_channel(&ws2812RmtChannel);
     
-    lp_rmt_config_tx_channel(&ws2812RmtChannel);
+    rmt_config_tx_channel(&ws2812RmtChannel);
 
     ws2812RmtChannel.bit0 = (rmt_symbol_word_t) {
         .level0 = 1,
@@ -46,7 +46,7 @@ int ws2812_driver_regist_channel(uint8_t channel, gpio_num_t gpio)
 }
 
 void ws2812_driver_deinit(void) {
-    lp_rmt_deinit_device();
+    rmt_deinit_device();
 }
 
 int ws2812_driver_set_channel(uint8_t channel, uint8_t val) {
@@ -102,7 +102,7 @@ int ws2812_driver_update_channels(void) {
     ws2812Buffer.RMTBufferGRB[1] = ws2812Buffer.RGBBuffer.red;
     ws2812Buffer.RMTBufferGRB[2] = ws2812Buffer.RGBBuffer.blue;
     // update color settings
-    lp_rmt_send_bytes(ws2812Buffer.RMTBufferGRB, 24, &ws2812RmtChannel);
+    rmt_send_bytes(ws2812Buffer.RMTBufferGRB, 24, &ws2812RmtChannel);
 
     return 0;
 }

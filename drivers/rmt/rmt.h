@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * @file lp_rmt.h
+ * @file rmt.h
  * @brief RMT (Remote Control) peripheral driver for LP core
  *
  * This component provides functionality to control the RMT peripheral on the Low Power (LP) core.
@@ -37,13 +37,13 @@
 #include "soc/rtc.h"
 #include "sdkconfig.h"
 
-#define LP_RMT_DEFAULT_GROUP            (0)
-#define LP_RMT_DEFAULT_TX_CHANNEL       (0)
-#define LP_RMT_DEFAULT_CLK_RESOLUTION   XTAL_CLK_FREQ
-// #define LP_RMT_DEFAULT_CLK_RESOLUTION   RTC_FAST_CLK_FREQ_APPROX
+#define RMT_DEFAULT_GROUP            (0)
+#define RMT_DEFAULT_TX_CHANNEL       (0)
+#define RMT_DEFAULT_CLK_RESOLUTION   XTAL_CLK_FREQ
+// #define RMT_DEFAULT_CLK_RESOLUTION   RTC_FAST_CLK_FREQ_APPROX
 
-#define LP_RMT_DEFAULT_CLK_SRC          RMT_CLK_SRC_XTAL
-// #define LP_RMT_DEFAULT_CLK_SRC          RMT_CLK_SRC_RC_FAST
+#define RMT_DEFAULT_CLK_SRC          RMT_CLK_SRC_XTAL
+// #define RMT_DEFAULT_CLK_SRC          RMT_CLK_SRC_RC_FAST
 
 // For ESP32C6 Only
 #define CONFIG_BLINK_GPIO               (8)
@@ -67,7 +67,7 @@ extern rmt_block_mem_t RMTMEM;
 /**
  * @brief RMT channel configuration structure
  */
-struct lp_rmt_channel_t {
+struct rmt_channel_t {
     size_t clkResolutionHz;         /**< Clock resolution in Hz */
     unsigned int realClkResolutionHz; /**< Actual clock resolution after divider */
     size_t groupClkResolutionHz;    /**< Group clock resolution in Hz */
@@ -79,8 +79,7 @@ struct lp_rmt_channel_t {
     bool msbFirst;                  /**< True if MSB is transmitted first */
 };
 
-typedef struct lp_rmt_channel_t     lp_rmt_channel_t;
-typedef rmt_dev_t                   lp_rmt_dev_t;
+typedef struct rmt_channel_t     rmt_channel_t;
 
 /**
  * @brief Send bytes using RMT
@@ -90,7 +89,7 @@ typedef rmt_dev_t                   lp_rmt_dev_t;
  * @param channel Pointer to RMT channel configuration
  * @return bool true if successful, false otherwise
  */
-bool lp_rmt_send_bytes(void* dataBuffer, size_t numBits, lp_rmt_channel_t* channel);
+bool rmt_send_bytes(void* dataBuffer, size_t numBits, rmt_channel_t* channel);
 
 /**
  * @brief Configure RMT transmit channel
@@ -98,7 +97,7 @@ bool lp_rmt_send_bytes(void* dataBuffer, size_t numBits, lp_rmt_channel_t* chann
  * @param channel Pointer to RMT channel configuration
  * @return bool true if successful, false otherwise
  */
-bool lp_rmt_config_tx_channel(lp_rmt_channel_t* channel);
+bool rmt_config_tx_channel(rmt_channel_t* channel);
 
 /**
  * @brief Create default transmit channel with standard configuration
@@ -106,21 +105,21 @@ bool lp_rmt_config_tx_channel(lp_rmt_channel_t* channel);
  * @param defaultChannel Pointer to store default channel configuration
  * @return bool true if successful, false otherwise
  */
-bool lp_rmt_create_default_tx_channel(lp_rmt_channel_t* defaultChannel);
+bool rmt_create_default_tx_channel(rmt_channel_t* defaultChannel);
 
 /**
  * @brief Initialize RMT device
  *
  * @return bool true if successful, false otherwise
  */
-bool lp_rmt_init_device(void);
+bool rmt_init_device(void);
 
 /**
  * @brief Deinitialize RMT device
  *
  * @return bool true if successful, false otherwise
  */
-bool lp_rmt_deinit_device(void);
+bool rmt_deinit_device(void);
 
 #ifdef __cplusplus
 }

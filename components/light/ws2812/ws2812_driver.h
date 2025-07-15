@@ -2,7 +2,7 @@
 
 #include "lp_sw_timer.h"
 #include "color_format.h"
-#include "lp_rmt.h"
+#include "rmt.h"
 
 #ifdef __cplusplus
 extern "C" {

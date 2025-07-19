@@ -37,6 +37,9 @@ static void loop()
     low_code_get_event_from_system();
 }
 
+static uint16_t s_xy_cache_x = 0xFFFF;
+static uint16_t s_xy_cache_y = 0xFFFF;
+
 int feature_update_from_system(low_code_feature_data_t *data)
 {
     /* Get the device feature updates */
@@ -64,6 +67,17 @@ int feature_update_from_system(low_code_feature_data_t *data)
             uint8_t saturation = *(uint8_t *)data->value.value;
             printf("%s: Feature update: saturation: %d\n", TAG, saturation);
             app_driver_set_light_saturation(saturation);
+        } else if (feature_id == LOW_CODE_FEATURE_ID_COLOR_X) {
+            s_xy_cache_x = *(uint16_t *)data->value.value;
+
+        } else if (feature_id == LOW_CODE_FEATURE_ID_COLOR_Y) {
+            s_xy_cache_y = *(uint16_t *)data->value.value;
+        } 
+
+        /* 두 좌표가 모두 준비되면 변환‑출력 */
+        if (s_xy_cache_x != 0xFFFF && s_xy_cache_y != 0xFFFF) {
+            app_driver_set_light_xy(s_xy_cache_x, s_xy_cache_y);
+            s_xy_cache_x = s_xy_cache_y = 0xFFFF;   // (선택) 다음 세트 준비
         }
     }
 

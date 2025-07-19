@@ -18,6 +18,8 @@
 
 #include "app_priv.h"
 
+#include <math.h>
+
 #define WS2812_CTRL_IO ((gpio_num_t)8)
 
 static const char *TAG = "app_driver";
@@ -77,6 +79,66 @@ int app_driver_set_light_temperature(uint16_t temperature)
     printf("%s: Setting light temperature: %d\n", TAG, temperature);
     return light_driver_set_temperature(temperature);
 }
+
+
+/* helper: 0‑360° → 0‑100 */
+static inline uint8_t deg_to_percent(double deg)
+{
+    /* 0~360 범위 포함 보정 */
+    while (deg < 0)    deg += 360.0;
+    while (deg >= 360) deg -= 360.0;
+    return (uint8_t)round(deg * (100.0 / 360.0));
+}
+
+/* helper: 0‑1 → 0‑100 */
+static inline uint8_t frac_to_percent(double v)
+{
+    if (v < 0) v = 0;          // 클램프
+    if (v > 1) v = 1;
+    return (uint8_t)round(v * 100.0);
+}
+
+
+void app_driver_set_light_xy(uint16_t x16, uint16_t y16)
+{
+    /* 1) 16‑bit → 정규화 */
+    double x = x16 / 65535.0;
+    double y = y16 / 65535.0;
+    if (y == 0 || x + y > 1) return;        // 방어
+
+    /* 2) CIE XYZ (Y=1) → 선형 sRGB */
+    double X = (1.0 / y) * x;
+    double Z = (1.0 / y) * (1 - x - y);
+    double r =  3.2406*X - 1.5372*1 - 0.4986*Z;
+    double g = -0.9689*X + 1.8758*1 + 0.0415*Z;
+    double b =  0.0557*X - 0.2040*1 + 1.0570*Z;
+
+    /* 음수 제거 */
+    if (r < 0) { r = 0; }
+    if (g < 0) { g = 0; }
+    if (b < 0) { b = 0; }
+
+    /* 3) RGB → HSV */
+    double max = fmax(r, fmax(g, b));
+    double min = fmin(r, fmin(g, b));
+    double delta = max - min;
+
+    /* Hue 계산 */
+    double H = 0;
+    if (delta > 1e-6) {
+        if (max == r)       H = 60.0 * fmod(((g - b) / delta), 6);
+        else if (max == g)  H = 60.0 * (((b - r) / delta) + 2);
+        else                H = 60.0 * (((r - g) / delta) + 4);
+    }
+    /* Saturation 계산 (Value는 brightness 피처에서 따로 조절하므로 무시) */
+    double S = (max == 0) ? 0 : delta / max;
+
+    /* 4) 드라이버 호출 (0‑100 스케일 가정) */
+    light_driver_set_hue(deg_to_percent(H));
+    light_driver_set_saturation(frac_to_percent(S));
+}
+
+
 
 int app_driver_event_handler(low_code_event_t *event)
 {

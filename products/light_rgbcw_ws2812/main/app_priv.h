@@ -25,6 +25,9 @@ int app_driver_set_light_temperature(uint16_t temperature);
 int app_driver_set_light_hue(uint8_t hue);
 int app_driver_set_light_saturation(uint8_t saturation);
 
+/* ★ 새로 추가: XY → Hue/Sat 변환함수 */
+void app_driver_set_light_xy(uint16_t x16, uint16_t y16);
+
 /* Events handler */
 int app_driver_event_handler(low_code_event_t *event);
 

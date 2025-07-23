@@ -46,6 +46,9 @@ int feature_update_from_system(low_code_feature_data_t *data)
     uint16_t endpoint_id = data->details.endpoint_id;
     uint32_t feature_id = data->details.feature_id;
 
+    uint32_t cluster_id = data->details.low_level.matter.cluster_id;
+    uint32_t attribute_id = data->details.low_level.matter.attribute_id;
+
     if (endpoint_id == 1) {
         if (feature_id == LOW_CODE_FEATURE_ID_POWER) {  // Power
             bool power_value = *(bool *)data->value.value;
@@ -67,12 +70,15 @@ int feature_update_from_system(low_code_feature_data_t *data)
             uint8_t saturation = *(uint8_t *)data->value.value;
             printf("%s: Feature update: saturation: %d\n", TAG, saturation);
             app_driver_set_light_saturation(saturation);
-        } else if (feature_id == LOW_CODE_FEATURE_ID_COLOR_X) {
-            s_xy_cache_x = *(uint16_t *)data->value.value;
 
-        } else if (feature_id == LOW_CODE_FEATURE_ID_COLOR_Y) {
+
+        } else if (cluster_id == 0x0300 && attribute_id == 0x0003) {
+            s_xy_cache_x = *(uint16_t *)data->value.value;
+            printf("%s: Received Current x: %d\n", TAG, s_xy_cache_x);
+        } else if (cluster_id == 0x0300 && attribute_id == 0x0004) {
             s_xy_cache_y = *(uint16_t *)data->value.value;
-        } 
+            printf("%s: Received Current y: %d\n", TAG, s_xy_cache_y);
+        }   
 
         /* 두 좌표가 모두 준비되면 변환‑출력 */
         if (s_xy_cache_x != 0xFFFF && s_xy_cache_y != 0xFFFF) {

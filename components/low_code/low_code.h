@@ -57,8 +57,6 @@ typedef enum {
     LOW_CODE_FEATURE_ID_COLOR_TEMPERATURE = 1003, /*!< Color temperature control */
     LOW_CODE_FEATURE_ID_HUE = 1004,         /*!< Hue control feature */
     LOW_CODE_FEATURE_ID_SATURATION = 1005,  /*!< Saturation control feature */
-    LOW_CODE_FEATURE_ID_COLOR_X = 1006,
-    LOW_CODE_FEATURE_ID_COLOR_Y = 1007,
     LOW_CODE_FEATURE_ID_TEMPERATURE = 4004,  /*!< Temperature sensing/control */
     LOW_CODE_FEATURE_ID_COOLING_SETPOINT = 4005, /*!< Cooling setpoint control */
     LOW_CODE_FEATURE_ID_HEATING_SETPOINT = 4006, /*!< Heating setpoint control */
@@ -83,6 +81,7 @@ typedef enum {
     LOW_CODE_VALUE_TYPE_OCTET_STRING,       /*!< Octet string value type */
     LOW_CODE_VALUE_TYPE_ARRAY,              /*!< Array value type */
     LOW_CODE_VALUE_TYPE_CUSTOM,             /*!< Custom value type */
+    LOW_CODE_FEATURE_TYPE_UINT16
 } low_code_feature_value_type_t;
 
 /**

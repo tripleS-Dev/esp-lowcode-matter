@@ -81,7 +81,6 @@ typedef enum {
     LOW_CODE_VALUE_TYPE_OCTET_STRING,       /*!< Octet string value type */
     LOW_CODE_VALUE_TYPE_ARRAY,              /*!< Array value type */
     LOW_CODE_VALUE_TYPE_CUSTOM,             /*!< Custom value type */
-    LOW_CODE_FEATURE_TYPE_UINT16
 } low_code_feature_value_type_t;
 
 /**

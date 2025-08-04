@@ -39,10 +39,10 @@ int app_driver_init()
         .max_brightness = 100,
     };
     light_driver_init(&cfg);
-    light_driver_set_power(true);
+    light_driver_set_power(false);
     light_driver_set_hue(100);
     light_driver_set_saturation(100);
-    light_driver_set_brightness(100);
+    light_driver_set_brightness(50);
     return 0;
 }
 
@@ -73,11 +73,41 @@ int app_driver_set_light_saturation(uint8_t saturation)
     return light_driver_set_saturation(saturation);
 }
 
-int app_driver_set_light_temperature(uint16_t temperature)
+
+/* 입력: color_temperature characteristic (mired) 154-455 */
+#define CT_MIN 154u          /* 6500 K */
+#define CT_MAX 455u          /* 2200 K */
+
+/* 원하는 Hue 범위 (°)와 채도 범위(0-1) */
+#define HUE_WARM 30.0f       /* 2200 K 쪽 - 주황빛 */
+#define HUE_COOL 60.0f       /* 6500 K 쪽 - 담황/백색 */
+#define HUE_SCALE (65535.0f / 360.0f)   /* ° → uint16_t */
+
+void app_driver_set_light_temperature(uint16_t ct_mired)
 {
-    temperature = 1000000 / temperature;
-    printf("%s: Setting light temperature: %d\n", TAG, temperature);
-    return light_driver_set_temperature(temperature);
+    /* 1) 경계 값 클램핑 */
+    if (ct_mired < CT_MIN) ct_mired = CT_MIN;
+    if (ct_mired > CT_MAX) ct_mired = CT_MAX;
+
+    /* 2) 0-1 정규화
+       - 따뜻한 455 → 0, 차가운 154 → 1 */
+    float t = (float)(CT_MAX - ct_mired) / (float)(CT_MAX - CT_MIN);
+
+    /* 3) 선형 보간 */
+    float hue_deg = HUE_WARM + t * (HUE_COOL - HUE_WARM);
+    float sat_f   = 1.0f - t;               /* 100 % → 0 % */
+
+    /* 4) 드라이버 단위로 변환 */
+    uint16_t hue_drv = (uint16_t)roundf(hue_deg * HUE_SCALE); /* 0-65535 */
+    uint8_t  sat_drv = (uint8_t)roundf(sat_f * 100.0f);       /* 0-100   */
+
+    /* 5) LED 드라이버에 적용 */
+    light_driver_set_hue(hue_drv);
+    light_driver_set_saturation(sat_drv);
+
+
+    uint16_t temperature = 1000000 / ct_mired;
+    light_driver_set_temperature(temperature);
 }
 
 /* 도 → 0‑360 정수, 퍼센트 → 0‑100 정수로 바꿔 주는 작은 헬퍼                   */
